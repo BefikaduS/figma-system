@@ -1,17 +1,422 @@
-<h2>Rectangle Creator</h2>
-<p>Count: <input id="count" type="number" value="5"></p>
-<button id="create">Create</button>
-<button id="cancel">Cancel</button>
-<script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
 
-document.getElementById('create').onclick = () => {
-  const textbox = document.getElementById('count');
-  const count = parseInt(textbox.value, 10);
-  parent.postMessage({ pluginMessage: { type: 'create-shapes', count } }, '*')
-}
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
-document.getElementById('cancel').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
-}
+  <title>Figma System</title>
 
-</script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      background: #f7f7f5;
+      color: #18181b;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .app {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* --------------------------------------------------------
+       Header
+    -------------------------------------------------------- */
+
+    .header {
+      height: 64px;
+      padding: 0 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      border-bottom: 1px solid #e4e4e7;
+      background: #ffffff;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 7px;
+      background: #18181b;
+      color: #ffffff;
+
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 650;
+      letter-spacing: -0.2px;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      font-size: 11px;
+      color: #71717a;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+    }
+
+    /* --------------------------------------------------------
+       Main
+    -------------------------------------------------------- */
+
+    .main {
+      flex: 1;
+      overflow: auto;
+      padding: 24px 20px;
+    }
+
+    .intro {
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      margin-bottom: 7px;
+
+      font-size: 11px;
+      font-weight: 650;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #71717a;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+
+      font-size: 25px;
+      line-height: 1.15;
+      letter-spacing: -0.7px;
+    }
+
+    .intro-text {
+      margin: 0;
+
+      font-size: 13px;
+      line-height: 1.5;
+      color: #71717a;
+    }
+
+    /* --------------------------------------------------------
+       Selection Card
+    -------------------------------------------------------- */
+
+    .card {
+      padding: 16px;
+
+      border: 1px solid #e4e4e7;
+      border-radius: 10px;
+
+      background: #ffffff;
+    }
+
+    .card-title {
+      margin-bottom: 5px;
+
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .card-description {
+      margin-bottom: 14px;
+
+      font-size: 12px;
+      line-height: 1.45;
+      color: #71717a;
+    }
+
+    .selection-count {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 10px 12px;
+
+      border-radius: 7px;
+      background: #f4f4f5;
+    }
+
+    .selection-label {
+      font-size: 12px;
+      color: #52525b;
+    }
+
+    .selection-value {
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    /* --------------------------------------------------------
+       Actions
+    -------------------------------------------------------- */
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    button {
+      min-height: 36px;
+      padding: 0 14px;
+
+      border: 1px solid #d4d4d8;
+      border-radius: 7px;
+
+      background: #ffffff;
+      color: #18181b;
+
+      cursor: pointer;
+
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    button:hover {
+      background: #f4f4f5;
+    }
+
+    .primary {
+      flex: 1;
+
+      border-color: #18181b;
+      background: #18181b;
+      color: #ffffff;
+    }
+
+    .primary:hover {
+      background: #27272a;
+    }
+
+    /* --------------------------------------------------------
+       Footer
+    -------------------------------------------------------- */
+
+    .footer {
+      padding: 12px 20px;
+
+      border-top: 1px solid #e4e4e7;
+
+      font-size: 10px;
+      color: #a1a1aa;
+
+      background: #ffffff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+
+    <header class="header">
+      <div class="brand">
+        <div class="brand-mark">FS</div>
+
+        <div class="brand-name">
+          Figma System
+        </div>
+      </div>
+
+      <div class="status">
+        <span class="status-dot"></span>
+        Ready
+      </div>
+    </header>
+
+    <main class="main">
+
+      <section class="intro">
+        <div class="eyebrow">
+          Design System Toolkit
+        </div>
+
+        <h1>
+          Build better systems.
+        </h1>
+
+        <p class="intro-text">
+          Analyze, generate, audit, and document
+          your Figma design system.
+        </p>
+      </section>
+
+      <section class="card">
+
+        <div class="card-title">
+          Current Selection
+        </div>
+
+        <div class="card-description">
+          Select layers in Figma to begin analyzing
+          your design system.
+        </div>
+
+        <div class="selection-count">
+          <span class="selection-label">
+            Selected layers
+          </span>
+
+          <span
+            id="selection-count"
+            class="selection-value"
+          >
+            0
+          </span>
+        </div>
+
+        <div class="actions">
+
+          <button
+            id="refresh-selection"
+            class="primary"
+          >
+            Refresh selection
+          </button>
+
+          <button
+            id="close"
+          >
+            Close
+          </button>
+
+        </div>
+
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      Figma System · Development Build
+    </footer>
+
+  </div>
+
+  <script>
+    // ========================================================
+    // UI → Plugin
+    // ========================================================
+
+    function sendMessage(message) {
+      parent.postMessage(
+        {
+          pluginMessage: message
+        },
+        "*"
+      );
+    }
+
+    // ========================================================
+    // DOM
+    // ========================================================
+
+    const selectionCount =
+      document.getElementById("selection-count");
+
+    const refreshSelection =
+      document.getElementById("refresh-selection");
+
+    const closeButton =
+      document.getElementById("close");
+
+    // ========================================================
+    // Actions
+    // ========================================================
+
+    refreshSelection.addEventListener("click", () => {
+      sendMessage({
+        type: "get-selection"
+      });
+    });
+
+    closeButton.addEventListener("click", () => {
+      sendMessage({
+        type: "close-plugin"
+      });
+    });
+
+    // ========================================================
+    // Plugin → UI
+    // ========================================================
+
+    window.onmessage = (event) => {
+      const message = event.data.pluginMessage;
+
+      if (!message) {
+        return;
+      }
+
+      switch (message.type) {
+
+        case "plugin-ready":
+        case "selection-info": {
+
+          const count =
+            message.selection?.count ?? 0;
+
+          selectionCount.textContent =
+            String(count);
+
+          break;
+        }
+      }
+    };
+
+    // ========================================================
+    // Tell plugin that UI is ready
+    // ========================================================
+
+    sendMessage({
+      type: "ui-ready"
+    });
+  </script>
+</body>
+</html>
