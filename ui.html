@@ -1,6 +1,9 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8" />
 
   <meta
@@ -10,7 +13,9 @@
 
   <title>Figma System</title>
 
+
   <style>
+
     /* ========================================================
        RESET
     ======================================================== */
@@ -19,18 +24,16 @@
       box-sizing: border-box;
     }
 
+
     html,
     body {
       width: 100%;
       height: 100%;
-      margin: 0;
-    }
 
-    body {
-      overflow: hidden;
+      margin: 0;
+      padding: 0;
 
       font-family:
-        "Google Sans",
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
@@ -40,9 +43,16 @@
       color: #18181b;
     }
 
+
+    body {
+      overflow: hidden;
+    }
+
+
     button {
       font: inherit;
     }
+
 
     /* ========================================================
        APP
@@ -51,51 +61,51 @@
     .app {
       display: flex;
 
+      flex-direction: column;
+
       width: 100%;
       height: 100%;
     }
 
+
     /* ========================================================
-       SIDEBAR
+       HEADER
     ======================================================== */
 
-    .sidebar {
-      width: 176px;
-      min-width: 176px;
+    .header {
+      height: 60px;
+
+      padding: 0 18px;
 
       display: flex;
-      flex-direction: column;
 
-      border-right: 1px solid #e4e4e7;
+      align-items: center;
+      justify-content: space-between;
 
       background: #ffffff;
-    }
-
-    /* --------------------------------------------------------
-       Brand
-    -------------------------------------------------------- */
-
-    .brand {
-      height: 64px;
-
-      display: flex;
-      align-items: center;
-
-      padding: 0 16px;
 
       border-bottom: 1px solid #e4e4e7;
     }
+
+
+    .brand {
+      display: flex;
+
+      align-items: center;
+
+      gap: 9px;
+    }
+
 
     .brand-mark {
       width: 28px;
       height: 28px;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
 
-      margin-right: 9px;
-
       border-radius: 7px;
 
       background: #18181b;
@@ -103,165 +113,27 @@
 
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: -0.2px;
     }
+
 
     .brand-name {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 650;
-      letter-spacing: -0.2px;
     }
 
-    /* --------------------------------------------------------
-       Navigation
-    -------------------------------------------------------- */
-
-    .navigation {
-      flex: 1;
-
-      padding: 16px 10px;
-
-      overflow-y: auto;
-    }
-
-    .nav-section {
-      margin-bottom: 20px;
-    }
-
-    .nav-label {
-      padding: 0 8px;
-      margin-bottom: 7px;
-
-      font-size: 9px;
-      font-weight: 700;
-      line-height: 1.2;
-
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-
-      color: #a1a1aa;
-    }
-
-    .nav-button {
-      width: 100%;
-      min-height: 34px;
-
-      display: flex;
-      align-items: center;
-
-      padding: 0 9px;
-
-      border: 0;
-      border-radius: 7px;
-
-      background: transparent;
-      color: #52525b;
-
-      cursor: pointer;
-
-      font-size: 11px;
-      font-weight: 550;
-
-      text-align: left;
-    }
-
-    .nav-button:hover {
-      background: #f4f4f5;
-      color: #18181b;
-    }
-
-    .nav-button.active {
-      background: #18181b;
-      color: #ffffff;
-    }
-
-    .nav-icon {
-      width: 20px;
-      margin-right: 7px;
-
-      font-size: 12px;
-      line-height: 1;
-
-      text-align: center;
-    }
-
-    /* --------------------------------------------------------
-       Sidebar Footer
-    -------------------------------------------------------- */
-
-    .sidebar-footer {
-      padding: 12px 10px;
-
-      border-top: 1px solid #e4e4e7;
-    }
-
-    .close-button {
-      width: 100%;
-      height: 32px;
-
-      border: 1px solid #d4d4d8;
-      border-radius: 7px;
-
-      background: #ffffff;
-      color: #52525b;
-
-      cursor: pointer;
-
-      font-size: 11px;
-      font-weight: 600;
-    }
-
-    .close-button:hover {
-      background: #f4f4f5;
-      color: #18181b;
-    }
-
-    /* ========================================================
-       MAIN AREA
-    ======================================================== */
-
-    .main {
-      min-width: 0;
-      flex: 1;
-
-      display: flex;
-      flex-direction: column;
-
-      background: #f7f7f5;
-    }
-
-    /* --------------------------------------------------------
-       Header
-    -------------------------------------------------------- */
-
-    .topbar {
-      height: 64px;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      padding: 0 22px;
-
-      border-bottom: 1px solid #e4e4e7;
-
-      background: #ffffff;
-    }
-
-    .page-title {
-      font-size: 13px;
-      font-weight: 650;
-      letter-spacing: -0.2px;
-    }
 
     .status {
       display: flex;
+
       align-items: center;
+
       gap: 6px;
 
-      font-size: 10px;
+      font-size: 11px;
+
       color: #71717a;
     }
+
 
     .status-dot {
       width: 7px;
@@ -272,155 +144,111 @@
       background: #22c55e;
     }
 
-    /* --------------------------------------------------------
-       Content
-    -------------------------------------------------------- */
 
-    .content {
+    /* ========================================================
+       CONTENT
+    ======================================================== */
+
+    .main {
       flex: 1;
 
       overflow-y: auto;
 
-      padding: 24px 22px;
+      padding: 20px;
     }
 
-    .page {
-      display: none;
-    }
-
-    .page.active {
-      display: block;
-    }
 
     /* ========================================================
-       Typography
+       INTRO
     ======================================================== */
 
     .eyebrow {
-      margin-bottom: 7px;
+      margin-bottom: 6px;
 
-      font-size: 9px;
+      font-size: 10px;
+
       font-weight: 700;
 
-      text-transform: uppercase;
       letter-spacing: 0.08em;
+
+      text-transform: uppercase;
 
       color: #71717a;
     }
 
+
     h1 {
-      margin: 0 0 8px;
-
-      font-family:
-        "Bricolage Grotesque",
-        "Google Sans",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-
-      font-size: 25px;
-      line-height: 1.15;
-      letter-spacing: -0.8px;
-    }
-
-    h2 {
       margin: 0 0 7px;
 
-      font-size: 15px;
-      line-height: 1.2;
-      letter-spacing: -0.3px;
+      font-size: 23px;
+
+      line-height: 1.15;
+
+      letter-spacing: -0.6px;
     }
 
-    .description {
-      max-width: 440px;
 
-      margin: 0 0 22px;
+    .intro-text {
+      margin: 0 0 20px;
 
       font-size: 12px;
+
       line-height: 1.5;
 
       color: #71717a;
     }
 
+
     /* ========================================================
-       Cards
+       SECTION
     ======================================================== */
 
-    .card-grid {
-      display: grid;
-
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-
-      gap: 10px;
+    .section {
+      margin-bottom: 14px;
     }
+
+
+    .section-header {
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 7px;
+    }
+
+
+    .section-title {
+      font-size: 11px;
+
+      font-weight: 700;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.06em;
+
+      color: #52525b;
+    }
+
+
+    /* ========================================================
+       SELECTION CARD
+    ======================================================== */
 
     .card {
-      min-height: 126px;
-
-      padding: 15px;
-
-      border: 1px solid #e4e4e7;
-      border-radius: 9px;
-
       background: #ffffff;
-    }
-
-    .card:hover {
-      border-color: #d4d4d8;
-    }
-
-    .card-icon {
-      width: 28px;
-      height: 28px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      margin-bottom: 12px;
 
       border: 1px solid #e4e4e7;
-      border-radius: 7px;
 
-      background: #fafafa;
+      border-radius: 10px;
 
-      font-size: 12px;
+      padding: 14px;
     }
 
-    .card-title {
-      margin-bottom: 5px;
 
-      font-size: 12px;
-      font-weight: 650;
-    }
-
-    .card-description {
-      margin: 0;
-
-      font-size: 10px;
-      line-height: 1.45;
-
-      color: #71717a;
-    }
-
-    /* ========================================================
-       Selection
-    ======================================================== */
-
-    .selection-card {
-      margin-top: 10px;
-
-      padding: 15px;
-
-      border: 1px solid #e4e4e7;
-      border-radius: 9px;
-
-      background: #ffffff;
-    }
-
-    .selection-row {
+    .selection-summary {
       display: flex;
+
       align-items: center;
       justify-content: space-between;
 
@@ -431,131 +259,289 @@
       background: #f4f4f5;
     }
 
+
     .selection-label {
-      font-size: 10px;
-      color: #52525b;
+      font-size: 11px;
+
+      color: #71717a;
     }
+
 
     .selection-value {
-      font-size: 12px;
-      font-weight: 650;
+      font-size: 13px;
+
+      font-weight: 700;
     }
 
-    .button-row {
+
+    /* ========================================================
+       BUTTONS
+    ======================================================== */
+
+    .actions {
       display: flex;
+
       gap: 8px;
 
       margin-top: 10px;
     }
 
-    .button {
-      height: 34px;
+
+    button {
+      min-height: 36px;
 
       padding: 0 13px;
 
       border: 1px solid #d4d4d8;
+
       border-radius: 7px;
 
       background: #ffffff;
+
       color: #18181b;
 
       cursor: pointer;
 
-      font-size: 10px;
-      font-weight: 600;
+      font-size: 11px;
+
+      font-weight: 650;
     }
 
-    .button:hover {
+
+    button:hover {
       background: #f4f4f5;
     }
 
-    .button.primary {
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+
+    .primary {
+      flex: 1;
+
       border-color: #18181b;
 
       background: #18181b;
+
       color: #ffffff;
     }
 
-    .button.primary:hover {
+
+    .primary:hover {
       background: #27272a;
     }
 
+
     /* ========================================================
-       Placeholder Page
+       INSPECTION
     ======================================================== */
 
-    .placeholder {
-      padding: 28px 0;
+    .inspection {
+      display: none;
     }
 
-    .placeholder-box {
-      padding: 24px;
+
+    .inspection.visible {
+      display: block;
+    }
+
+
+    .empty {
+      padding: 18px 10px;
+
+      text-align: center;
+
+      color: #71717a;
+
+      font-size: 11px;
+
+      line-height: 1.5;
+    }
+
+
+    /* ========================================================
+       NODE
+    ======================================================== */
+
+    .node {
+      padding: 12px;
+
+      margin-bottom: 8px;
 
       border: 1px solid #e4e4e7;
-      border-radius: 9px;
+
+      border-radius: 8px;
 
       background: #ffffff;
     }
 
-    .placeholder-status {
-      display: inline-flex;
+
+    .node:last-child {
+      margin-bottom: 0;
+    }
+
+
+    .node-header {
+      display: flex;
+
       align-items: center;
+      justify-content: space-between;
 
-      min-height: 24px;
+      gap: 10px;
 
-      padding: 0 8px;
+      margin-bottom: 10px;
+    }
 
-      margin-bottom: 14px;
 
-      border: 1px solid #e4e4e7;
-      border-radius: 6px;
+    .node-name {
+      min-width: 0;
+
+      overflow: hidden;
+
+      text-overflow: ellipsis;
+
+      white-space: nowrap;
+
+      font-size: 12px;
+
+      font-weight: 700;
+    }
+
+
+    .node-type {
+      flex-shrink: 0;
+
+      padding: 3px 6px;
+
+      border-radius: 5px;
+
+      background: #f4f4f5;
+
+      color: #71717a;
 
       font-size: 9px;
-      font-weight: 650;
 
-      color: #71717a;
+      font-weight: 700;
     }
 
-    .placeholder-text {
-      margin: 0;
-
-      font-size: 11px;
-      line-height: 1.5;
-
-      color: #71717a;
-    }
 
     /* ========================================================
-       Footer
+       PROPERTY GRID
+    ======================================================== */
+
+    .properties {
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 6px;
+    }
+
+
+    .property {
+      padding: 8px;
+
+      border-radius: 6px;
+
+      background: #f7f7f5;
+    }
+
+
+    .property-label {
+      margin-bottom: 3px;
+
+      font-size: 9px;
+
+      color: #a1a1aa;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.04em;
+    }
+
+
+    .property-value {
+      overflow: hidden;
+
+      text-overflow: ellipsis;
+
+      white-space: nowrap;
+
+      font-size: 11px;
+
+      font-weight: 600;
+
+      color: #27272a;
+    }
+
+
+    /* ========================================================
+       TEXT DETAILS
+    ======================================================== */
+
+    .text-details {
+      margin-top: 8px;
+
+      padding: 9px;
+
+      border-radius: 6px;
+
+      background: #f7f7f5;
+    }
+
+
+    .text-content {
+      margin-bottom: 7px;
+
+      font-size: 11px;
+
+      line-height: 1.4;
+
+      color: #27272a;
+
+      word-break: break-word;
+    }
+
+
+    /* ========================================================
+       FOOTER
     ======================================================== */
 
     .footer {
-      height: 34px;
+      min-height: 38px;
 
       display: flex;
+
       align-items: center;
 
-      padding: 0 22px;
+      padding: 0 18px;
 
       border-top: 1px solid #e4e4e7;
 
       background: #ffffff;
 
-      font-size: 9px;
       color: #a1a1aa;
+
+      font-size: 9px;
     }
+
   </style>
+
 </head>
+
 
 <body>
 
   <div class="app">
 
+
     <!-- ======================================================
-         SIDEBAR
+         HEADER
     ======================================================= -->
 
-    <aside class="sidebar">
+    <header class="header">
 
       <div class="brand">
 
@@ -569,94 +555,19 @@
 
       </div>
 
-      <nav class="navigation">
 
-        <div class="nav-section">
+      <div class="status">
 
-          <div class="nav-label">
-            Workspace
-          </div>
+        <span class="status-dot"></span>
 
-          <button
-            class="nav-button active"
-            data-page="overview"
-          >
-            <span class="nav-icon">⌂</span>
-            Overview
-          </button>
-
-        </div>
-
-        <div class="nav-section">
-
-          <div class="nav-label">
-            System
-          </div>
-
-          <button
-            class="nav-button"
-            data-page="design-system"
-          >
-            <span class="nav-icon">◈</span>
-            Design System
-          </button>
-
-          <button
-            class="nav-button"
-            data-page="spacing"
-          >
-            <span class="nav-icon">↔</span>
-            Spacing Audit
-          </button>
-
-          <button
-            class="nav-button"
-            data-page="checker"
-          >
-            <span class="nav-icon">✓</span>
-            System Checker
-          </button>
-
-          <button
-            class="nav-button"
-            data-page="consistency"
-          >
-            <span class="nav-icon">≡</span>
-            UI Consistency
-          </button>
-
-        </div>
-
-        <div class="nav-section">
-
-          <div class="nav-label">
-            Documentation
-          </div>
-
-          <button
-            class="nav-button"
-            data-page="foundations"
-          >
-            <span class="nav-icon">▤</span>
-            Foundations
-          </button>
-
-        </div>
-
-      </nav>
-
-      <div class="sidebar-footer">
-
-        <button
-          id="close"
-          class="close-button"
-        >
-          Close plugin
-        </button>
+        <span>
+          Connected
+        </span>
 
       </div>
 
-    </aside>
+    </header>
+
 
     <!-- ======================================================
          MAIN
@@ -664,567 +575,571 @@
 
     <main class="main">
 
-      <header class="topbar">
 
-        <div
-          id="page-title"
-          class="page-title"
-        >
-          Overview
-        </div>
-
-        <div class="status">
-
-          <span class="status-dot"></span>
-
-          Ready
-
-        </div>
-
-      </header>
-
-      <div class="content">
-
-        <!-- ==================================================
-             OVERVIEW
-        =================================================== -->
-
-        <section
-          id="page-overview"
-          class="page active"
-        >
-
-          <div class="eyebrow">
-            Design System Toolkit
-          </div>
-
-          <h1>
-            Build better systems.
-          </h1>
-
-          <p class="description">
-            Analyze, generate, audit, and document
-            your Figma design system from real source data.
-          </p>
-
-          <div class="card-grid">
-
-            <div class="card">
-
-              <div class="card-icon">
-                ◈
-              </div>
-
-              <div class="card-title">
-                Design System
-              </div>
-
-              <p class="card-description">
-                Extract colors, typography, variables,
-                styles, components, and visual properties.
-              </p>
-
-            </div>
-
-            <div class="card">
-
-              <div class="card-icon">
-                ↔
-              </div>
-
-              <div class="card-title">
-                Spacing Audit
-              </div>
-
-              <p class="card-description">
-                Audit layouts against a strict
-                4/8pt spacing system.
-              </p>
-
-            </div>
-
-            <div class="card">
-
-              <div class="card-icon">
-                ✓
-              </div>
-
-              <div class="card-title">
-                System Checker
-              </div>
-
-              <p class="card-description">
-                Check tokens, typography, spacing,
-                components, states, and accessibility.
-              </p>
-
-            </div>
-
-            <div class="card">
-
-              <div class="card-icon">
-                ≡
-              </div>
-
-              <div class="card-title">
-                UI Consistency
-              </div>
-
-              <p class="card-description">
-                Detect repeated patterns and
-                measure interface consistency.
-              </p>
-
-            </div>
-
-          </div>
-
-          <div class="selection-card">
-
-            <h2>
-              Current Selection
-            </h2>
-
-            <p class="card-description">
-              Select layers in Figma to begin analysis.
-            </p>
-
-            <div class="selection-row">
-
-              <span class="selection-label">
-                Selected layers
-              </span>
-
-              <span
-                id="selection-count"
-                class="selection-value"
-              >
-                0
-              </span>
-
-            </div>
-
-            <div class="button-row">
-
-              <button
-                id="refresh-selection"
-                class="button primary"
-              >
-                Refresh selection
-              </button>
-
-            </div>
-
-          </div>
-
-        </section>
-
-        <!-- ==================================================
-             DESIGN SYSTEM
-        =================================================== -->
-
-        <section
-          id="page-design-system"
-          class="page"
-        >
-
-          <div class="eyebrow">
-            System
-          </div>
-
-          <h1>
-            Design System
-          </h1>
-
-          <p class="description">
-            Extract real design properties from selected
-            Figma layers and transform them into a structured
-            design system.
-          </p>
-
-          <div class="placeholder">
-            <div class="placeholder-box">
-
-              <div class="placeholder-status">
-                FOUNDATION READY
-              </div>
-
-              <h2>
-                Extraction engine coming next
-              </h2>
-
-              <p class="placeholder-text">
-                This area will contain the source-driven
-                extraction workflow for colors, typography,
-                variables, styles, components, states,
-                radii, strokes, and other visual properties.
-              </p>
-
-            </div>
-          </div>
-
-        </section>
-
-        <!-- ==================================================
-             SPACING
-        =================================================== -->
-
-        <section
-          id="page-spacing"
-          class="page"
-        >
-
-          <div class="eyebrow">
-            System
-          </div>
-
-          <h1>
-            Spacing Audit
-          </h1>
-
-          <p class="description">
-            Audit spacing before making any modification.
-            Intentional exceptions and source tokens must
-            remain protected.
-          </p>
-
-          <div class="placeholder">
-            <div class="placeholder-box">
-
-              <div class="placeholder-status">
-                AUDIT ENGINE COMING SOON
-              </div>
-
-              <h2>
-                4/8pt spacing analysis
-              </h2>
-
-              <p class="placeholder-text">
-                The audit will show exact before and after
-                values and will only allow modifications
-                after the audit summary is reviewed.
-              </p>
-
-            </div>
-          </div>
-
-        </section>
-
-        <!-- ==================================================
-             SYSTEM CHECKER
-        =================================================== -->
-
-        <section
-          id="page-checker"
-          class="page"
-        >
-
-          <div class="eyebrow">
-            Analysis
-          </div>
-
-          <h1>
-            System Checker
-          </h1>
-
-          <p class="description">
-            Evidence-based checks for design-system quality,
-            accessibility, naming, components, states,
-            typography, colors, and spacing.
-          </p>
-
-          <div class="placeholder">
-            <div class="placeholder-box">
-
-              <div class="placeholder-status">
-                CHECKER COMING SOON
-              </div>
-
-              <h2>
-                Evidence-based findings
-              </h2>
-
-              <p class="placeholder-text">
-                Findings will distinguish confirmed deviations,
-                likely deviations, and recommendations with
-                severity and confidence scoring.
-              </p>
-
-            </div>
-          </div>
-
-        </section>
-
-        <!-- ==================================================
-             UI CONSISTENCY
-        =================================================== -->
-
-        <section
-          id="page-consistency"
-          class="page"
-        >
-
-          <div class="eyebrow">
-            Analysis
-          </div>
-
-          <h1>
-            UI Consistency
-          </h1>
-
-          <p class="description">
-            Detect repeated interface patterns across layout,
-            typography, colors, components, icons, forms,
-            navigation, states, and responsive behavior.
-          </p>
-
-          <div class="placeholder">
-            <div class="placeholder-box">
-
-              <div class="placeholder-status">
-                ANALYSIS COMING SOON
-              </div>
-
-              <h2>
-                Consistency scoring
-              </h2>
-
-              <p class="placeholder-text">
-                Repeated-pattern detection, consistency scores,
-                quick wins, and recommended standards will
-                appear here.
-              </p>
-
-            </div>
-          </div>
-
-        </section>
-
-        <!-- ==================================================
-             FOUNDATIONS
-        =================================================== -->
-
-        <section
-          id="page-foundations"
-          class="page"
-        >
-
-          <div class="eyebrow">
-            Documentation
-          </div>
-
-          <h1>
-            Foundations
-          </h1>
-
-          <p class="description">
-            Generate source-driven design-system documentation
-            using immutable source IDs, dedicated renderers,
-            read-back validation, and fail-closed output.
-          </p>
-
-          <div class="placeholder">
-            <div class="placeholder-box">
-
-              <div class="placeholder-status">
-                DOCUMENTATION COMING SOON
-              </div>
-
-              <h2>
-                Source-driven foundations
-              </h2>
-
-              <p class="placeholder-text">
-                This will become the most extensive module,
-                including variables, styles, spacing, sizing,
-                radius, borders, opacity, typography,
-                gradients, developer tokens, validation,
-                repair, and final completion assertions.
-              </p>
-
-            </div>
-          </div>
-
-        </section>
-
+      <div class="eyebrow">
+        Design System Toolkit
       </div>
 
-      <footer class="footer">
-        Figma System · Development Build
-      </footer>
+
+      <h1>
+        Inspect your design.
+      </h1>
+
+
+      <p class="intro-text">
+        Select layers in Figma to inspect their
+        real document properties.
+      </p>
+
+
+      <!-- ====================================================
+           SELECTION
+      ===================================================== -->
+
+      <section class="section">
+
+        <div class="section-header">
+
+          <div class="section-title">
+            Current Selection
+          </div>
+
+        </div>
+
+
+        <div class="card">
+
+          <div class="selection-summary">
+
+            <span class="selection-label">
+              Selected layers
+            </span>
+
+            <span
+              id="selection-count"
+              class="selection-value"
+            >
+              0
+            </span>
+
+          </div>
+
+
+          <div class="actions">
+
+            <button
+              id="inspect-selection"
+              class="primary"
+            >
+              Inspect Selection
+            </button>
+
+
+            <button
+              id="close"
+            >
+              Close
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ====================================================
+           INSPECTION
+      ===================================================== -->
+
+      <section
+        id="inspection-section"
+        class="section inspection"
+      >
+
+        <div class="section-header">
+
+          <div class="section-title">
+            Inspection
+          </div>
+
+        </div>
+
+
+        <div
+          id="inspection-content"
+        ></div>
+
+      </section>
+
 
     </main>
 
+
+    <!-- ======================================================
+         FOOTER
+    ======================================================= -->
+
+    <footer class="footer">
+      Figma System · Development Build
+    </footer>
+
+
   </div>
 
+
   <script>
+
     // ========================================================
-    // UI → PLUGIN
+    // MESSAGE BRIDGE
     // ========================================================
 
     function sendMessage(message) {
+
       parent.postMessage(
         {
           pluginMessage: message
         },
         "*"
       );
+
     }
 
-    // ========================================================
-    // STATE
-    // ========================================================
-
-    let currentPage = "overview";
 
     // ========================================================
     // DOM
     // ========================================================
 
-    const navigationButtons =
-      document.querySelectorAll(".nav-button");
-
-    const pages =
-      document.querySelectorAll(".page");
-
-    const pageTitle =
-      document.getElementById("page-title");
-
     const selectionCount =
-      document.getElementById("selection-count");
+      document.getElementById(
+        "selection-count"
+      );
 
-    const refreshSelection =
-      document.getElementById("refresh-selection");
+
+    const inspectButton =
+      document.getElementById(
+        "inspect-selection"
+      );
+
 
     const closeButton =
-      document.getElementById("close");
+      document.getElementById(
+        "close"
+      );
+
+
+    const inspectionSection =
+      document.getElementById(
+        "inspection-section"
+      );
+
+
+    const inspectionContent =
+      document.getElementById(
+        "inspection-content"
+      );
+
 
     // ========================================================
-    // PAGE TITLES
+    // Formatting
     // ========================================================
 
-    const pageTitles = {
-      overview: "Overview",
-      "design-system": "Design System",
-      spacing: "Spacing Audit",
-      checker: "System Checker",
-      consistency: "UI Consistency",
-      foundations: "Foundations"
-    };
+    function formatNumber(
+      value,
+      decimals = 2
+    ) {
 
-    // ========================================================
-    // NAVIGATION
-    // ========================================================
+      if (
+        typeof value !== "number"
+        || !Number.isFinite(value)
+      ) {
+        return "—";
+      }
 
-    function showPage(pageName) {
 
-      currentPage = pageName;
+      return value
+        .toFixed(decimals)
+        .replace(/\.00$/, "");
 
-      navigationButtons.forEach((button) => {
-
-        const buttonPage =
-          button.dataset.page;
-
-        button.classList.toggle(
-          "active",
-          buttonPage === pageName
-        );
-
-      });
-
-      pages.forEach((page) => {
-
-        page.classList.toggle(
-          "active",
-          page.id === `page-${pageName}`
-        );
-
-      });
-
-      pageTitle.textContent =
-        pageTitles[pageName] || "Figma System";
     }
 
-    navigationButtons.forEach((button) => {
 
-      button.addEventListener("click", () => {
+    function formatOpacity(
+      value
+    ) {
 
-        const pageName =
-          button.dataset.page;
+      if (value === null) {
+        return "—";
+      }
 
-        if (!pageName) {
-          return;
-        }
 
-        showPage(pageName);
+      return `${Math.round(value * 100)}%`;
 
-      });
+    }
 
-    });
 
-    // ========================================================
-    // SELECTION
-    // ========================================================
+    function escapeHtml(
+      value
+    ) {
 
-    refreshSelection.addEventListener("click", () => {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
-      sendMessage({
-        type: "get-selection"
-      });
+    }
 
-    });
-
-    // ========================================================
-    // CLOSE
-    // ========================================================
-
-    closeButton.addEventListener("click", () => {
-
-      sendMessage({
-        type: "close-plugin"
-      });
-
-    });
 
     // ========================================================
-    // PLUGIN → UI
+    // Render Selection
     // ========================================================
 
-    window.onmessage = (event) => {
+    function renderSelection(
+      selection
+    ) {
+
+      const count =
+        selection?.count ?? 0;
+
+
+      selectionCount.textContent =
+        String(count);
+
+
+      if (count === 0) {
+
+        inspectionSection.classList.remove(
+          "visible"
+        );
+
+
+        inspectionContent.innerHTML =
+          "";
+
+
+        return;
+
+      }
+
+    }
+
+
+    // ========================================================
+    // Render Inspection
+    // ========================================================
+
+    function renderInspection(
+      selection
+    ) {
+
+      const nodes =
+        selection?.nodes ?? [];
+
+
+      selectionCount.textContent =
+        String(
+          selection?.count ?? nodes.length
+        );
+
+
+      inspectionSection.classList.add(
+        "visible"
+      );
+
+
+      if (nodes.length === 0) {
+
+        inspectionContent.innerHTML = `
+          <div class="card">
+            <div class="empty">
+              No layers are currently selected.
+            </div>
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      inspectionContent.innerHTML =
+        nodes.map(
+          (node) => {
+
+            const text =
+              node.text;
+
+
+            return `
+              <div class="node">
+
+                <div class="node-header">
+
+                  <div
+                    class="node-name"
+                    title="${escapeHtml(node.name)}"
+                  >
+                    ${escapeHtml(node.name)}
+                  </div>
+
+                  <div class="node-type">
+                    ${escapeHtml(node.type)}
+                  </div>
+
+                </div>
+
+
+                <div class="properties">
+
+
+                  <div class="property">
+
+                    <div class="property-label">
+                      Position
+                    </div>
+
+                    <div class="property-value">
+                      ${formatNumber(node.x)},
+                      ${formatNumber(node.y)}
+                    </div>
+
+                  </div>
+
+
+                  <div class="property">
+
+                    <div class="property-label">
+                      Size
+                    </div>
+
+                    <div class="property-value">
+                      ${formatNumber(node.width)}
+                      ×
+                      ${formatNumber(node.height)}
+                    </div>
+
+                  </div>
+
+
+                  <div class="property">
+
+                    <div class="property-label">
+                      Fills
+                    </div>
+
+                    <div class="property-value">
+                      ${node.fills}
+                    </div>
+
+                  </div>
+
+
+                  <div class="property">
+
+                    <div class="property-label">
+                      Strokes
+                    </div>
+
+                    <div class="property-value">
+                      ${node.strokes}
+                    </div>
+
+                  </div>
+
+
+                  <div class="property">
+
+                    <div class="property-label">
+                      Radius
+                    </div>
+
+                    <div class="property-value">
+                      ${
+                        node.cornerRadius ?? "—"
+                      }
+                    </div>
+
+                  </div>
+
+
+                  <div class="property">
+
+                    <div class="property-label">
+                      Opacity
+                    </div>
+
+                    <div class="property-value">
+                      ${
+                        formatOpacity(
+                          node.opacity
+                        )
+                      }
+                    </div>
+
+                  </div>
+
+
+                </div>
+
+
+                ${
+                  text
+                    ? `
+                      <div class="text-details">
+
+                        <div class="property-label">
+                          Text
+                        </div>
+
+                        <div class="text-content">
+                          ${escapeHtml(
+                            text.characters
+                          )}
+                        </div>
+
+                        <div class="property">
+
+                          <div class="property-label">
+                            Font Size
+                          </div>
+
+                          <div class="property-value">
+                            ${
+                              text.fontSize !== null
+                                ? `${formatNumber(text.fontSize)} px`
+                                : "—"
+                            }
+                          </div>
+
+                        </div>
+
+                      </div>
+                    `
+                    : ""
+                }
+
+              </div>
+            `;
+
+          }
+        ).join("");
+
+    }
+
+
+    // ========================================================
+    // Inspect Button
+    // ========================================================
+
+    inspectButton.addEventListener(
+      "click",
+      () => {
+
+        sendMessage({
+          type: "inspect-selection"
+        });
+
+      }
+    );
+
+
+    // ========================================================
+    // Close
+    // ========================================================
+
+    closeButton.addEventListener(
+      "click",
+      () => {
+
+        sendMessage({
+          type: "close-plugin"
+        });
+
+      }
+    );
+
+
+    // ========================================================
+    // Plugin → UI
+    // ========================================================
+
+    window.onmessage = (
+      event
+    ) => {
 
       const message =
         event.data.pluginMessage;
+
 
       if (!message) {
         return;
       }
 
+
       switch (message.type) {
 
-        case "plugin-ready":
-        case "selection-info": {
 
-          const count =
-            message.selection?.count ?? 0;
+        // ----------------------------------------------------
+        // Plugin Ready
+        // ----------------------------------------------------
 
-          selectionCount.textContent =
-            String(count);
+        case "plugin-ready": {
+
+          renderSelection(
+            message.selection
+          );
 
           break;
+
+        }
+
+
+        // ----------------------------------------------------
+        // Automatic Selection Update
+        // ----------------------------------------------------
+
+        case "selection-info": {
+
+          renderSelection(
+            message.selection
+          );
+
+          break;
+
+        }
+
+
+        // ----------------------------------------------------
+        // Inspection Result
+        // ----------------------------------------------------
+
+        case "selection-inspection": {
+
+          renderInspection(
+            message.selection
+          );
+
+          break;
+
         }
 
       }
 
     };
 
+
     // ========================================================
-    // UI READY
+    // Tell Plugin UI Is Ready
     // ========================================================
 
     sendMessage({
       type: "ui-ready"
     });
+
   </script>
 
 </body>
+
 </html>

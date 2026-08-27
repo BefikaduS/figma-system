@@ -1,7 +1,7 @@
 {
-  "name": "Figma-System",
+  "name": "figma-system",
   "version": "1.0.0",
-  "description": "Your Figma Plugin",
+  "description": "Figma System - Design system analysis, auditing, generation, and documentation toolkit.",
   "main": "code.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -9,8 +9,8 @@
     "lint:fix": "eslint . --fix",
     "watch": "npm run build -- --watch"
   },
-  "author": "",
-  "license": "",
+  "author": "BfkDesign",
+  "license": "MIT",
   "devDependencies": {
     "@eslint/js": "^9.39.4",
     "@figma/eslint-plugin-figma-plugins": "*",

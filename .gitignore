@@ -4,6 +4,7 @@ build/
 .cache/
 .DS_Store
 *.log
+
 .env
 .env.*
 !.env.example
