@@ -3,7 +3,6 @@
 // Main Plugin Runtime
 // ============================================================
 
-
 // ============================================================
 // UI
 // ============================================================
@@ -13,25 +12,15 @@ figma.showUI(__html__, {
   height: 680,
 });
 
-
 // ============================================================
 // MESSAGE TYPES
 // ============================================================
 
 type PluginMessage =
-  | {
-      type: "ui-ready";
-    }
-  | {
-      type: "close-plugin";
-    }
-  | {
-      type: "get-selection";
-    }
-  | {
-      type: "inspect-selection";
-    };
-
+  | { type: "ui-ready" }
+  | { type: "close-plugin" }
+  | { type: "get-selection" }
+  | { type: "inspect-selection" };
 
 // ============================================================
 // SOURCE TYPES
@@ -43,7 +32,6 @@ type RGBColor = {
   b: number;
 };
 
-
 type PaintSource = {
   type: Paint["type"];
   visible?: boolean;
@@ -52,55 +40,31 @@ type PaintSource = {
   blendMode?: BlendMode;
 };
 
-
-type StrokeSource = {
-  type: Paint["type"];
-  visible?: boolean;
-  opacity?: number;
-  color?: RGBColor;
-  blendMode?: BlendMode;
-};
-
+type StrokeSource = PaintSource;
 
 type TypographySource = {
   characters: string;
-
   fontSize: number | null;
-
   fontFamily: string | null;
-
   fontStyle: string | null;
-
   fontWeight: number | null;
-
   letterSpacing: LetterSpacing | null;
-
   lineHeight: LineHeight | null;
-
   textCase: TextCase | null;
-
   textDecoration: TextDecoration | null;
-
   textAlignHorizontal: string | null;
-
   textAlignVertical: string | null;
 };
 
-
 type EffectSource = {
   type: Effect["type"];
-
   visible: boolean;
-
   radius?: number;
-
   spread?: number;
-
   offset?: {
     x: number;
     y: number;
   };
-
   color?: {
     r: number;
     g: number;
@@ -109,28 +73,20 @@ type EffectSource = {
   };
 };
 
-
 type SourceNode = {
   id: string;
-
   name: string;
-
   type: SceneNode["type"];
 
   x: number;
-
   y: number;
-
   width: number;
-
   height: number;
 
   opacity: number | null;
 
   fills: PaintSource[] | null;
-
   strokes: StrokeSource[] | null;
-
   strokeWeight: number | null;
 
   cornerRadius: number | null;
@@ -146,63 +102,37 @@ type SourceNode = {
   itemSpacing: number | null;
 
   paddingLeft: number | null;
-
   paddingRight: number | null;
-
   paddingTop: number | null;
-
   paddingBottom: number | null;
 
   typography: TypographySource | null;
 };
 
-
 type SelectionSource = {
   count: number;
-
   nodes: SourceNode[];
 };
-
 
 // ============================================================
 // HELPERS
 // ============================================================
 
-function isPaintArray(
-  value: readonly Paint[] | typeof figma.mixed,
-): value is readonly Paint[] {
-
-  return Array.isArray(value);
-}
-
-
-function isEffectArray(
-  value: readonly Effect[] | typeof figma.mixed,
-): value is readonly Effect[] {
-
-  return Array.isArray(value);
-}
-
-
 function isSolidPaint(
   paint: Paint,
 ): paint is SolidPaint {
-
   return paint.type === "SOLID";
 }
-
 
 function extractColor(
   paint: SolidPaint,
 ): RGBColor {
-
   return {
     r: paint.color.r,
     g: paint.color.g,
     b: paint.color.b,
   };
 }
-
 
 // ============================================================
 // PAINT EXTRACTION
@@ -212,7 +142,7 @@ function extractPaints(
   paints: readonly Paint[] | typeof figma.mixed,
 ): PaintSource[] | null {
 
-  if (!isPaintArray(paints)) {
+  if (paints === figma.mixed) {
     return null;
   }
 
@@ -223,33 +153,24 @@ function extractPaints(
     };
 
     if ("visible" in paint) {
-
-      result.visible =
-        paint.visible;
+      result.visible = paint.visible;
     }
 
     if ("opacity" in paint) {
-
-      result.opacity =
-        paint.opacity;
+      result.opacity = paint.opacity;
     }
 
     if ("blendMode" in paint) {
-
-      result.blendMode =
-        paint.blendMode;
+      result.blendMode = paint.blendMode;
     }
 
     if (isSolidPaint(paint)) {
-
-      result.color =
-        extractColor(paint);
+      result.color = extractColor(paint);
     }
 
     return result;
   });
 }
-
 
 // ============================================================
 // STROKE EXTRACTION
@@ -263,9 +184,10 @@ function extractStrokes(
     return null;
   }
 
-  const strokes =
-    node.strokes;
+  const strokes = node.strokes;
 
+  // SceneNode types that expose strokes use a readonly Paint[]
+  // in the current Figma typings. Do not compare it to figma.mixed.
   return strokes.map((paint) => {
 
     const result: StrokeSource = {
@@ -273,33 +195,24 @@ function extractStrokes(
     };
 
     if ("visible" in paint) {
-
-      result.visible =
-        paint.visible;
+      result.visible = paint.visible;
     }
 
     if ("opacity" in paint) {
-
-      result.opacity =
-        paint.opacity;
+      result.opacity = paint.opacity;
     }
 
     if ("blendMode" in paint) {
-
-      result.blendMode =
-        paint.blendMode;
+      result.blendMode = paint.blendMode;
     }
 
     if (isSolidPaint(paint)) {
-
-      result.color =
-        extractColor(paint);
+      result.color = extractColor(paint);
     }
 
     return result;
   });
 }
-
 
 // ============================================================
 // EFFECT EXTRACTION
@@ -313,12 +226,7 @@ function extractEffects(
     return null;
   }
 
-  const effects =
-    node.effects;
-
-  if (!isEffectArray(effects)) {
-    return null;
-  }
+  const effects = node.effects;
 
   return effects.map((effect) => {
 
@@ -331,22 +239,17 @@ function extractEffects(
       "radius" in effect &&
       typeof effect.radius === "number"
     ) {
-
-      result.radius =
-        effect.radius;
+      result.radius = effect.radius;
     }
 
     if (
       "spread" in effect &&
       typeof effect.spread === "number"
     ) {
-
-      result.spread =
-        effect.spread;
+      result.spread = effect.spread;
     }
 
     if ("offset" in effect) {
-
       result.offset = {
         x: effect.offset.x,
         y: effect.offset.y,
@@ -357,7 +260,6 @@ function extractEffects(
       "color" in effect &&
       effect.color
     ) {
-
       result.color = {
         r: effect.color.r,
         g: effect.color.g,
@@ -369,7 +271,6 @@ function extractEffects(
     return result;
   });
 }
-
 
 // ============================================================
 // CORNER RADIUS
@@ -383,19 +284,16 @@ function extractCornerRadius(
     return null;
   }
 
-  const value =
-    node.cornerRadius;
+  const value = node.cornerRadius;
 
-  if (
-    typeof value !== "number"
-  ) {
-
+  if (value === figma.mixed) {
     return null;
   }
 
-  return value;
+  return typeof value === "number"
+    ? value
+    : null;
 }
-
 
 // ============================================================
 // OPACITY
@@ -409,14 +307,12 @@ function extractOpacity(
     return null;
   }
 
-  const value =
-    node.opacity;
+  const value = node.opacity;
 
   return typeof value === "number"
     ? value
     : null;
 }
-
 
 // ============================================================
 // LAYOUT
@@ -432,101 +328,70 @@ function extractLayout(
     | "NONE"
     | null = null;
 
-  let itemSpacing:
-    number | null = null;
+  let itemSpacing: number | null = null;
 
-  let paddingLeft:
-    number | null = null;
-
-  let paddingRight:
-    number | null = null;
-
-  let paddingTop:
-    number | null = null;
-
-  let paddingBottom:
-    number | null = null;
-
+  let paddingLeft: number | null = null;
+  let paddingRight: number | null = null;
+  let paddingTop: number | null = null;
+  let paddingBottom: number | null = null;
 
   if ("layoutMode" in node) {
 
-    const mode =
-      node.layoutMode;
+    const mode = node.layoutMode;
 
-    layoutMode =
-      mode === "HORIZONTAL"
-        ? "HORIZONTAL"
-        : mode === "VERTICAL"
-          ? "VERTICAL"
-          : "NONE";
+    if (mode === "HORIZONTAL") {
+      layoutMode = "HORIZONTAL";
+    } else if (mode === "VERTICAL") {
+      layoutMode = "VERTICAL";
+    } else {
+      layoutMode = "NONE";
+    }
   }
-
 
   if (
     "itemSpacing" in node &&
     typeof node.itemSpacing === "number"
   ) {
-
-    itemSpacing =
-      node.itemSpacing;
+    itemSpacing = node.itemSpacing;
   }
-
 
   if (
     "paddingLeft" in node &&
     typeof node.paddingLeft === "number"
   ) {
-
-    paddingLeft =
-      node.paddingLeft;
+    paddingLeft = node.paddingLeft;
   }
-
 
   if (
     "paddingRight" in node &&
     typeof node.paddingRight === "number"
   ) {
-
-    paddingRight =
-      node.paddingRight;
+    paddingRight = node.paddingRight;
   }
-
 
   if (
     "paddingTop" in node &&
     typeof node.paddingTop === "number"
   ) {
-
-    paddingTop =
-      node.paddingTop;
+    paddingTop = node.paddingTop;
   }
-
 
   if (
     "paddingBottom" in node &&
     typeof node.paddingBottom === "number"
   ) {
-
-    paddingBottom =
-      node.paddingBottom;
+    paddingBottom = node.paddingBottom;
   }
-
 
   return {
     layoutMode,
-
     itemSpacing,
-
     paddingLeft,
-
     paddingRight,
-
     paddingTop,
-
     paddingBottom,
   };
 }
-
 
 // ============================================================
 // TYPOGRAPHY
@@ -540,81 +405,63 @@ function extractTypography(
     return null;
   }
 
-
   const fontSize =
     typeof node.fontSize === "number"
       ? node.fontSize
       : null;
 
+  let fontFamily: string | null = null;
+  let fontStyle: string | null = null;
 
-  let fontFamily:
-    string | null = null;
+  if (node.fontName !== figma.mixed) {
 
-  let fontStyle:
-    string | null = null;
-
-
-  if (
-    node.fontName !== figma.mixed
-  ) {
-
-    fontFamily =
-      node.fontName.family;
-
-    fontStyle =
-      node.fontName.style;
+    fontFamily = node.fontName.family;
+    fontStyle = node.fontName.style;
   }
 
-
-  let fontWeight:
-    number | null = null;
-
+  let fontWeight: number | null = null;
 
   if (
     node.fontWeight !== figma.mixed &&
     typeof node.fontWeight === "number"
   ) {
-
-    fontWeight =
-      node.fontWeight;
+    fontWeight = node.fontWeight;
   }
-
 
   const letterSpacing =
     node.letterSpacing === figma.mixed
       ? null
       : node.letterSpacing;
 
-
   const lineHeight =
     node.lineHeight === figma.mixed
       ? null
       : node.lineHeight;
-
 
   const textCase =
     node.textCase === figma.mixed
       ? null
       : node.textCase;
 
-
   const textDecoration =
     node.textDecoration === figma.mixed
       ? null
       : node.textDecoration;
 
+  // The current Figma typings expose these alignment
+  // properties as strings rather than mixed unions.
+  const textAlignHorizontal =
+    typeof node.textAlignHorizontal === "string"
+      ? node.textAlignHorizontal
+      : null;
 
-const textAlignHorizontal =
-  node.textAlignHorizontal;
-
-
-const textAlignVertical =
-  node.textAlignVertical;
+  const textAlignVertical =
+    typeof node.textAlignVertical === "string"
+      ? node.textAlignVertical
+      : null;
 
   return {
-
-    characters:
-      node.characters,
+    characters: node.characters,
 
     fontSize,
 
@@ -638,7 +485,6 @@ const textAlignVertical =
   };
 }
 
-
 // ============================================================
 // NODE EXTRACTION
 // ============================================================
@@ -647,35 +493,25 @@ function extractNode(
   node: SceneNode,
 ): SourceNode {
 
-  const layout =
-    extractLayout(node);
-
+  const layout = extractLayout(node);
 
   return {
 
-    id:
-      node.id,
+    id: node.id,
 
-    name:
-      node.name,
+    name: node.name,
 
-    type:
-      node.type,
+    type: node.type,
 
-    x:
-      node.x,
+    x: node.x,
 
-    y:
-      node.y,
+    y: node.y,
 
-    width:
-      node.width,
+    width: node.width,
 
-    height:
-      node.height,
+    height: node.height,
 
-    opacity:
-      extractOpacity(node),
+    opacity: extractOpacity(node),
 
     fills:
       "fills" in node
@@ -720,7 +556,6 @@ function extractNode(
   };
 }
 
-
 // ============================================================
 // SELECTION EXTRACTION
 // ============================================================
@@ -729,7 +564,6 @@ function extractSelection(): SelectionSource {
 
   const selection =
     figma.currentPage.selection;
-
 
   return {
 
@@ -744,9 +578,8 @@ function extractSelection(): SelectionSource {
   };
 }
 
-
 // ============================================================
-// SEND TO UI
+// SEND SELECTION TO UI
 // ============================================================
 
 function sendSelection(
@@ -766,7 +599,6 @@ function sendSelection(
   });
 }
 
-
 // ============================================================
 // AUTOMATIC SELECTION UPDATES
 // ============================================================
@@ -780,7 +612,6 @@ figma.on(
     );
   },
 );
-
 
 // ============================================================
 // MESSAGE HANDLER
@@ -801,7 +632,6 @@ figma.ui.onmessage = (
       break;
     }
 
-
     case "get-selection": {
 
       sendSelection(
@@ -810,7 +640,6 @@ figma.ui.onmessage = (
 
       break;
     }
-
 
     case "inspect-selection": {
 
@@ -821,14 +650,12 @@ figma.ui.onmessage = (
       break;
     }
 
-
     case "close-plugin": {
 
       figma.closePlugin();
 
       break;
     }
-
 
     default: {
 
