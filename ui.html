@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8" />
 
   <meta
@@ -13,9 +10,7 @@
 
   <title>Figma System</title>
 
-
   <style>
-
     /* ========================================================
        RESET
     ======================================================== */
@@ -24,16 +19,16 @@
       box-sizing: border-box;
     }
 
-
     html,
     body {
+      margin: 0;
       width: 100%;
       height: 100%;
+    }
 
-      margin: 0;
-      padding: 0;
-
+    body {
       font-family:
+        "Google Sans",
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
@@ -41,13 +36,9 @@
 
       background: #f7f7f5;
       color: #18181b;
-    }
 
-
-    body {
       overflow: hidden;
     }
-
 
     button {
       font: inherit;
@@ -60,84 +51,196 @@
 
     .app {
       display: flex;
-
-      flex-direction: column;
-
       width: 100%;
       height: 100%;
+      min-width: 0;
+      overflow: hidden;
     }
 
 
     /* ========================================================
-       HEADER
+       SIDEBAR
     ======================================================== */
 
-    .header {
-      height: 60px;
-
-      padding: 0 18px;
+    .sidebar {
+      width: 220px;
+      min-width: 220px;
 
       display: flex;
+      flex-direction: column;
 
-      align-items: center;
-      justify-content: space-between;
-
+      border-right: 1px solid #e4e4e7;
       background: #ffffff;
+    }
+
+
+    /* ========================================================
+       BRAND
+    ======================================================== */
+
+    .brand {
+      height: 64px;
+      padding: 0 16px;
+
+      display: flex;
+      align-items: center;
+      gap: 10px;
 
       border-bottom: 1px solid #e4e4e7;
     }
 
-
-    .brand {
-      display: flex;
-
-      align-items: center;
-
-      gap: 9px;
-    }
-
-
     .brand-mark {
-      width: 28px;
-      height: 28px;
+      width: 30px;
+      height: 30px;
 
       display: flex;
-
       align-items: center;
       justify-content: center;
 
-      border-radius: 7px;
+      border-radius: 8px;
 
       background: #18181b;
       color: #ffffff;
 
       font-size: 11px;
       font-weight: 700;
+      letter-spacing: -0.2px;
     }
 
+    .brand-info {
+      min-width: 0;
+    }
 
     .brand-name {
-      font-size: 14px;
-      font-weight: 650;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .brand-version {
+      margin-top: 2px;
+
+      font-size: 9px;
+      color: #a1a1aa;
     }
 
 
-    .status {
+    /* ========================================================
+       NAVIGATION
+    ======================================================== */
+
+    .navigation {
+      flex: 1;
+      padding: 14px 10px;
+
+      overflow-y: auto;
+    }
+
+    .nav-label {
+      margin: 8px 8px 7px;
+
+      font-size: 9px;
+      font-weight: 700;
+
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+
+      color: #a1a1aa;
+    }
+
+    .nav-list {
       display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
 
+    .nav-item {
+      width: 100%;
+      min-height: 36px;
+
+      display: flex;
       align-items: center;
+      gap: 10px;
 
-      gap: 6px;
+      padding: 0 10px;
 
-      font-size: 11px;
+      border: 0;
+      border-radius: 7px;
 
+      background: transparent;
+      color: #52525b;
+
+      cursor: pointer;
+
+      text-align: left;
+
+      font-size: 12px;
+      font-weight: 550;
+    }
+
+    .nav-item:hover {
+      background: #f4f4f5;
+      color: #18181b;
+    }
+
+    .nav-item.active {
+      background: #18181b;
+      color: #ffffff;
+    }
+
+    .nav-icon {
+      width: 16px;
+      height: 16px;
+
+      flex: 0 0 16px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-icon svg {
+      width: 16px;
+      height: 16px;
+
+      fill: none;
+      stroke: currentColor;
+
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .nav-text {
+      overflow: hidden;
+
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+
+    /* ========================================================
+       SIDEBAR FOOTER
+    ======================================================== */
+
+    .sidebar-footer {
+      padding: 12px;
+
+      border-top: 1px solid #e4e4e7;
+    }
+
+    .connection {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+
+      font-size: 10px;
       color: #71717a;
     }
 
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
+    .connection-dot {
+      width: 6px;
+      height: 6px;
 
       border-radius: 50%;
 
@@ -146,389 +249,507 @@
 
 
     /* ========================================================
-       CONTENT
+       MAIN
     ======================================================== */
 
-    .main {
+    .content {
+      flex: 1;
+      min-width: 0;
+
+      display: flex;
+      flex-direction: column;
+
+      overflow: hidden;
+    }
+
+
+    /* ========================================================
+       TOP BAR
+    ======================================================== */
+
+    .topbar {
+      min-height: 64px;
+      padding: 0 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 16px;
+
+      border-bottom: 1px solid #e4e4e7;
+      background: #ffffff;
+    }
+
+    .page-heading {
+      min-width: 0;
+    }
+
+    .page-title {
+      margin: 0;
+
+      font-size: 16px;
+      font-weight: 700;
+
+      letter-spacing: -0.25px;
+    }
+
+    .page-description {
+      margin-top: 3px;
+
+      font-size: 10px;
+      color: #71717a;
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+
+    /* ========================================================
+       SELECTION STATUS
+    ======================================================== */
+
+    .selection-status {
+      min-width: 0;
+
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 7px 10px;
+
+      border: 1px solid #e4e4e7;
+      border-radius: 7px;
+
+      background: #fafafa;
+
+      font-size: 10px;
+      color: #52525b;
+
+      white-space: nowrap;
+    }
+
+    .selection-status strong {
+      color: #18181b;
+      font-weight: 700;
+    }
+
+
+    /* ========================================================
+       PAGE AREA
+    ======================================================== */
+
+    .page {
       flex: 1;
 
       overflow-y: auto;
+      overflow-x: hidden;
 
-      padding: 20px;
+      padding: 24px;
     }
 
-
-    /* ========================================================
-       INTRO
-    ======================================================== */
-
-    .eyebrow {
-      margin-bottom: 6px;
-
-      font-size: 10px;
-
-      font-weight: 700;
-
-      letter-spacing: 0.08em;
-
-      text-transform: uppercase;
-
-      color: #71717a;
-    }
-
-
-    h1 {
-      margin: 0 0 7px;
-
-      font-size: 23px;
-
-      line-height: 1.15;
-
-      letter-spacing: -0.6px;
-    }
-
-
-    .intro-text {
-      margin: 0 0 20px;
-
-      font-size: 12px;
-
-      line-height: 1.5;
-
-      color: #71717a;
-    }
-
-
-    /* ========================================================
-       SECTION
-    ======================================================== */
-
-    .section {
-      margin-bottom: 14px;
-    }
-
-
-    .section-header {
-      display: flex;
-
-      align-items: center;
-      justify-content: space-between;
-
-      margin-bottom: 7px;
-    }
-
-
-    .section-title {
-      font-size: 11px;
-
-      font-weight: 700;
-
-      text-transform: uppercase;
-
-      letter-spacing: 0.06em;
-
-      color: #52525b;
-    }
-
-
-    /* ========================================================
-       SELECTION CARD
-    ======================================================== */
-
-    .card {
-      background: #ffffff;
-
-      border: 1px solid #e4e4e7;
-
-      border-radius: 10px;
-
-      padding: 14px;
-    }
-
-
-    .selection-summary {
-      display: flex;
-
-      align-items: center;
-      justify-content: space-between;
-
-      padding: 10px 11px;
-
-      border-radius: 7px;
-
-      background: #f4f4f5;
-    }
-
-
-    .selection-label {
-      font-size: 11px;
-
-      color: #71717a;
-    }
-
-
-    .selection-value {
-      font-size: 13px;
-
-      font-weight: 700;
-    }
-
-
-    /* ========================================================
-       BUTTONS
-    ======================================================== */
-
-    .actions {
-      display: flex;
-
-      gap: 8px;
-
-      margin-top: 10px;
-    }
-
-
-    button {
-      min-height: 36px;
-
-      padding: 0 13px;
-
-      border: 1px solid #d4d4d8;
-
-      border-radius: 7px;
-
-      background: #ffffff;
-
-      color: #18181b;
-
-      cursor: pointer;
-
-      font-size: 11px;
-
-      font-weight: 650;
-    }
-
-
-    button:hover {
-      background: #f4f4f5;
-    }
-
-
-    button:active {
-      transform: translateY(1px);
-    }
-
-
-    .primary {
-      flex: 1;
-
-      border-color: #18181b;
-
-      background: #18181b;
-
-      color: #ffffff;
-    }
-
-
-    .primary:hover {
-      background: #27272a;
-    }
-
-
-    /* ========================================================
-       INSPECTION
-    ======================================================== */
-
-    .inspection {
+    .screen {
       display: none;
+
+      max-width: 900px;
+      margin: 0 auto;
     }
 
-
-    .inspection.visible {
+    .screen.active {
       display: block;
     }
 
 
-    .empty {
-      padding: 18px 10px;
+    /* ========================================================
+       OVERVIEW
+    ======================================================== */
 
-      text-align: center;
+    .hero {
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      margin-bottom: 7px;
+
+      font-size: 9px;
+      font-weight: 700;
+
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
 
       color: #71717a;
+    }
 
-      font-size: 11px;
+    .hero h1 {
+      margin: 0 0 8px;
 
-      line-height: 1.5;
+      font-size: 25px;
+      line-height: 1.15;
+
+      letter-spacing: -0.7px;
+    }
+
+    .hero p {
+      max-width: 580px;
+
+      margin: 0;
+
+      font-size: 12px;
+      line-height: 1.55;
+
+      color: #71717a;
     }
 
 
     /* ========================================================
-       NODE
+       CARDS
     ======================================================== */
 
-    .node {
-      padding: 12px;
+    .card-grid {
+      display: grid;
 
-      margin-bottom: 8px;
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 12px;
+    }
+
+    .feature-card {
+      min-width: 0;
+
+      padding: 16px;
 
       border: 1px solid #e4e4e7;
+      border-radius: 10px;
+
+      background: #ffffff;
+    }
+
+    .feature-icon {
+      width: 32px;
+      height: 32px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 12px;
 
       border-radius: 8px;
 
+      background: #f4f4f5;
+      color: #18181b;
+    }
+
+    .feature-icon svg {
+      width: 17px;
+      height: 17px;
+
+      fill: none;
+      stroke: currentColor;
+
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .feature-title {
+      margin-bottom: 5px;
+
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .feature-description {
+      margin: 0;
+
+      font-size: 11px;
+      line-height: 1.5;
+
+      color: #71717a;
+    }
+
+
+    /* ========================================================
+       INSPECT SELECTION
+    ======================================================== */
+
+    .selection-panel {
+      margin-top: 24px;
+
+      border: 1px solid #e4e4e7;
+      border-radius: 10px;
+
       background: #ffffff;
+
+      overflow: hidden;
     }
 
+    .selection-panel-header {
+      padding: 14px 16px;
 
-    .node:last-child {
-      margin-bottom: 0;
-    }
-
-
-    .node-header {
       display: flex;
-
       align-items: center;
       justify-content: space-between;
 
-      gap: 10px;
+      gap: 12px;
 
-      margin-bottom: 10px;
+      border-bottom: 1px solid #e4e4e7;
     }
 
-
-    .node-name {
-      min-width: 0;
-
-      overflow: hidden;
-
-      text-overflow: ellipsis;
-
-      white-space: nowrap;
-
+    .selection-panel-title {
       font-size: 12px;
-
       font-weight: 700;
     }
 
+    .selection-panel-count {
+      font-size: 10px;
+      color: #71717a;
+    }
 
-    .node-type {
-      flex-shrink: 0;
+    .selection-list {
+      display: flex;
+      flex-direction: column;
+    }
 
-      padding: 3px 6px;
+    .selection-empty {
+      padding: 24px 16px;
 
-      border-radius: 5px;
+      text-align: center;
+
+      font-size: 11px;
+      color: #a1a1aa;
+    }
+
+    .selection-row {
+      min-height: 48px;
+
+      padding: 0 16px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 10px;
+
+      border-bottom: 1px solid #f0f0f2;
+    }
+
+    .selection-row:last-child {
+      border-bottom: 0;
+    }
+
+    .selection-node-icon {
+      width: 28px;
+      height: 28px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 6px;
 
       background: #f4f4f5;
 
-      color: #71717a;
+      font-size: 9px;
+      font-weight: 700;
+
+      color: #52525b;
+    }
+
+    .selection-node-info {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .selection-node-name {
+      overflow: hidden;
+
+      white-space: nowrap;
+      text-overflow: ellipsis;
+
+      font-size: 11px;
+      font-weight: 650;
+    }
+
+    .selection-node-type {
+      margin-top: 2px;
 
       font-size: 9px;
+      color: #a1a1aa;
+    }
 
+
+    /* ========================================================
+       INSPECT BUTTON
+    ======================================================== */
+
+    .inspect-button {
+      min-height: 30px;
+
+      padding: 0 10px;
+
+      border: 1px solid #d4d4d8;
+      border-radius: 6px;
+
+      background: #ffffff;
+      color: #18181b;
+
+      cursor: pointer;
+
+      font-size: 10px;
+      font-weight: 650;
+    }
+
+    .inspect-button:hover {
+      background: #f4f4f5;
+    }
+
+
+    /* ========================================================
+       PLACEHOLDER SCREENS
+    ======================================================== */
+
+    .screen-header {
+      margin-bottom: 20px;
+    }
+
+    .screen-header h2 {
+      margin: 0 0 6px;
+
+      font-size: 20px;
+      letter-spacing: -0.4px;
+    }
+
+    .screen-header p {
+      margin: 0;
+
+      max-width: 650px;
+
+      font-size: 11px;
+      line-height: 1.5;
+
+      color: #71717a;
+    }
+
+    .coming-soon {
+      padding: 20px;
+
+      border: 1px dashed #d4d4d8;
+      border-radius: 10px;
+
+      background: #ffffff;
+    }
+
+    .coming-soon-title {
+      margin-bottom: 5px;
+
+      font-size: 12px;
       font-weight: 700;
     }
 
+    .coming-soon-text {
+      margin: 0;
 
-    /* ========================================================
-       PROPERTY GRID
-    ======================================================== */
+      font-size: 10px;
+      line-height: 1.5;
 
-    .properties {
-      display: grid;
-
-      grid-template-columns: 1fr 1fr;
-
-      gap: 6px;
-    }
-
-
-    .property {
-      padding: 8px;
-
-      border-radius: 6px;
-
-      background: #f7f7f5;
-    }
-
-
-    .property-label {
-      margin-bottom: 3px;
-
-      font-size: 9px;
-
-      color: #a1a1aa;
-
-      text-transform: uppercase;
-
-      letter-spacing: 0.04em;
-    }
-
-
-    .property-value {
-      overflow: hidden;
-
-      text-overflow: ellipsis;
-
-      white-space: nowrap;
-
-      font-size: 11px;
-
-      font-weight: 600;
-
-      color: #27272a;
+      color: #71717a;
     }
 
 
     /* ========================================================
-       TEXT DETAILS
+       MOBILE / NARROW PLUGIN
     ======================================================== */
 
-    .text-details {
-      margin-top: 8px;
+    @media (max-width: 620px) {
 
-      padding: 9px;
+      .sidebar {
+        width: 58px;
+        min-width: 58px;
+      }
 
-      border-radius: 6px;
+      .brand {
+        justify-content: center;
+        padding: 0;
+      }
 
-      background: #f7f7f5;
-    }
+      .brand-info {
+        display: none;
+      }
 
+      .navigation {
+        padding: 12px 7px;
+      }
 
-    .text-content {
-      margin-bottom: 7px;
+      .nav-label {
+        display: none;
+      }
 
-      font-size: 11px;
+      .nav-item {
+        justify-content: center;
 
-      line-height: 1.4;
+        padding: 0;
 
-      color: #27272a;
+        min-height: 38px;
+      }
 
-      word-break: break-word;
+      .nav-text {
+        display: none;
+      }
+
+      .sidebar-footer {
+        display: flex;
+        justify-content: center;
+
+        padding: 12px 0;
+      }
+
+      .connection-text {
+        display: none;
+      }
+
+      .topbar {
+        padding: 0 14px;
+      }
+
+      .page {
+        padding: 18px 14px;
+      }
+
+      .selection-status {
+        padding: 6px 8px;
+      }
+
+      .selection-status-text {
+        display: none;
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
 
     /* ========================================================
-       FOOTER
+       VERY NARROW
     ======================================================== */
 
-    .footer {
-      min-height: 38px;
+    @media (max-width: 420px) {
 
-      display: flex;
+      .page-description {
+        display: none;
+      }
 
-      align-items: center;
+      .topbar {
+        min-height: 56px;
+      }
 
-      padding: 0 18px;
-
-      border-top: 1px solid #e4e4e7;
-
-      background: #ffffff;
-
-      color: #a1a1aa;
-
-      font-size: 9px;
+      .hero h1 {
+        font-size: 22px;
+      }
     }
-
   </style>
-
 </head>
 
 
@@ -536,12 +757,11 @@
 
   <div class="app">
 
-
     <!-- ======================================================
-         HEADER
+         SIDEBAR
     ======================================================= -->
 
-    <header class="header">
+    <aside class="sidebar">
 
       <div class="brand">
 
@@ -549,141 +769,604 @@
           FS
         </div>
 
-        <div class="brand-name">
-          Figma System
+        <div class="brand-info">
+
+          <div class="brand-name">
+            Figma System
+          </div>
+
+          <div class="brand-version">
+            Development Build
+          </div>
+
         </div>
 
       </div>
 
 
-      <div class="status">
+      <nav class="navigation">
 
-        <span class="status-dot"></span>
+        <div class="nav-label">
+          Workspace
+        </div>
 
-        <span>
-          Connected
-        </span>
+        <div class="nav-list">
+
+          <button
+            class="nav-item active"
+            data-screen="overview"
+            type="button"
+          >
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+              </svg>
+            </span>
+
+            <span class="nav-text">
+              Overview
+            </span>
+          </button>
+
+
+          <button
+            class="nav-item"
+            data-screen="design-system"
+            type="button"
+          >
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 4h7v7H4z"></path>
+                <path d="M13 4h7v7h-7z"></path>
+                <path d="M4 13h7v7H4z"></path>
+                <path d="M13 13h7v7h-7z"></path>
+              </svg>
+            </span>
+
+            <span class="nav-text">
+              Design System
+            </span>
+          </button>
+
+
+          <button
+            class="nav-item"
+            data-screen="spacing"
+            type="button"
+          >
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 7h16"></path>
+                <path d="M4 17h16"></path>
+                <path d="M7 4v6"></path>
+                <path d="M17 14v6"></path>
+              </svg>
+            </span>
+
+            <span class="nav-text">
+              Spacing Audit
+            </span>
+          </button>
+
+
+          <button
+            class="nav-item"
+            data-screen="checker"
+            type="button"
+          >
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 3l8 4v5c0 4.5-3.4 7.8-8 9-4.6-1.2-8-4.5-8-9V7l8-4z"></path>
+                <path d="M9 12l2 2 4-4"></path>
+              </svg>
+            </span>
+
+            <span class="nav-text">
+              System Checker
+            </span>
+          </button>
+
+
+          <button
+            class="nav-item"
+            data-screen="consistency"
+            type="button"
+          >
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 6h6"></path>
+                <path d="M14 6h6"></path>
+                <path d="M4 12h3"></path>
+                <path d="M11 12h9"></path>
+                <path d="M4 18h8"></path>
+                <path d="M16 18h4"></path>
+              </svg>
+            </span>
+
+            <span class="nav-text">
+              UI Consistency
+            </span>
+          </button>
+
+
+          <button
+            class="nav-item"
+            data-screen="foundations"
+            type="button"
+          >
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 19h16"></path>
+                <path d="M6 16V8"></path>
+                <path d="M10 16V5"></path>
+                <path d="M14 16v-6"></path>
+                <path d="M18 16V7"></path>
+              </svg>
+            </span>
+
+            <span class="nav-text">
+              Foundations
+            </span>
+          </button>
+
+        </div>
+
+      </nav>
+
+
+      <div class="sidebar-footer">
+
+        <div class="connection">
+
+          <span class="connection-dot"></span>
+
+          <span class="connection-text">
+            Figma connected
+          </span>
+
+        </div>
 
       </div>
 
-    </header>
+    </aside>
 
 
     <!-- ======================================================
-         MAIN
+         MAIN CONTENT
     ======================================================= -->
 
-    <main class="main">
-
-
-      <div class="eyebrow">
-        Design System Toolkit
-      </div>
-
-
-      <h1>
-        Inspect your design.
-      </h1>
-
-
-      <p class="intro-text">
-        Select layers in Figma to inspect their
-        real document properties.
-      </p>
+    <main class="content">
 
 
       <!-- ====================================================
-           SELECTION
+           TOP BAR
       ===================================================== -->
 
-      <section class="section">
+      <header class="topbar">
 
-        <div class="section-header">
+        <div class="page-heading">
 
-          <div class="section-title">
-            Current Selection
+          <h1
+            id="page-title"
+            class="page-title"
+          >
+            Overview
+          </h1>
+
+          <div
+            id="page-description"
+            class="page-description"
+          >
+            Analyze and improve your Figma design system.
           </div>
 
         </div>
 
 
-        <div class="card">
+        <div class="selection-status">
 
-          <div class="selection-summary">
+          <span>
+            ●
+          </span>
 
-            <span class="selection-label">
-              Selected layers
-            </span>
+          <span class="selection-status-text">
+            Selection
+          </span>
 
-            <span
-              id="selection-count"
-              class="selection-value"
-            >
-              0
-            </span>
-
-          </div>
-
-
-          <div class="actions">
-
-            <button
-              id="inspect-selection"
-              class="primary"
-            >
-              Inspect Selection
-            </button>
-
-
-            <button
-              id="close"
-            >
-              Close
-            </button>
-
-          </div>
+          <strong id="selection-count">
+            0
+          </strong>
 
         </div>
 
-      </section>
+      </header>
 
 
       <!-- ====================================================
-           INSPECTION
+           PAGE
       ===================================================== -->
 
-      <section
-        id="inspection-section"
-        class="section inspection"
-      >
+      <section class="page">
 
-        <div class="section-header">
 
-          <div class="section-title">
-            Inspection
-          </div>
-
-        </div>
-
+        <!-- ==================================================
+             OVERVIEW
+        =================================================== -->
 
         <div
-          id="inspection-content"
-        ></div>
+          id="screen-overview"
+          class="screen active"
+        >
+
+          <div class="hero">
+
+            <div class="eyebrow">
+              Design System Toolkit
+            </div>
+
+            <h1>
+              Build better systems.
+            </h1>
+
+            <p>
+              Analyze, generate, audit, and document
+              your Figma design system using real source
+              data from your document.
+            </p>
+
+          </div>
+
+
+          <div class="card-grid">
+
+
+            <article class="feature-card">
+
+              <div class="feature-icon">
+
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="8"></circle>
+                  <path d="M12 8v8"></path>
+                  <path d="M8 12h8"></path>
+                </svg>
+
+              </div>
+
+              <div class="feature-title">
+                Design System
+              </div>
+
+              <p class="feature-description">
+                Extract source values and generate
+                structured design tokens.
+              </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+              <div class="feature-icon">
+
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 6h16"></path>
+                  <path d="M4 12h10"></path>
+                  <path d="M4 18h16"></path>
+                </svg>
+
+              </div>
+
+              <div class="feature-title">
+                Spacing Audit
+              </div>
+
+              <p class="feature-description">
+                Detect spacing values outside the
+                defined 4/8pt system.
+              </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+              <div class="feature-icon">
+
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 3l8 4v5c0 4.5-3.4 7.8-8 9-4.6-1.2-8-4.5-8-9V7l8-4z"></path>
+                  <path d="M9 12l2 2 4-4"></path>
+                </svg>
+
+              </div>
+
+              <div class="feature-title">
+                System Checker
+              </div>
+
+              <p class="feature-description">
+                Check tokens, typography, components,
+                states, naming, and accessibility.
+              </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+              <div class="feature-icon">
+
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 5h14v14H5z"></path>
+                  <path d="M8 9h8"></path>
+                  <path d="M8 13h5"></path>
+                  <path d="M8 17h8"></path>
+                </svg>
+
+              </div>
+
+              <div class="feature-title">
+                Foundations
+              </div>
+
+              <p class="feature-description">
+                Document real variables, styles,
+                spacing, sizing, radius, and tokens.
+              </p>
+
+            </article>
+
+          </div>
+
+
+          <!-- ================================================
+               SELECTION
+          ================================================= -->
+
+          <section class="selection-panel">
+
+            <div class="selection-panel-header">
+
+              <div>
+                <div class="selection-panel-title">
+                  Inspect Selection
+                </div>
+
+                <div
+                  id="selection-panel-count"
+                  class="selection-panel-count"
+                >
+                  0 layers selected
+                </div>
+              </div>
+
+
+              <button
+                id="inspect-selection"
+                class="inspect-button"
+                type="button"
+              >
+                Inspect
+              </button>
+
+            </div>
+
+
+            <div
+              id="selection-list"
+              class="selection-list"
+            >
+
+              <div class="selection-empty">
+                Select one or more layers in Figma.
+              </div>
+
+            </div>
+
+          </section>
+
+        </div>
+
+
+        <!-- ==================================================
+             DESIGN SYSTEM
+        =================================================== -->
+
+        <div
+          id="screen-design-system"
+          class="screen"
+        >
+
+          <div class="screen-header">
+
+            <h2>
+              Design System
+            </h2>
+
+            <p>
+              Extract real source properties and
+              generate primitives, semantic tokens,
+              modes, components, and accessibility rules.
+            </p>
+
+          </div>
+
+          <div class="coming-soon">
+
+            <div class="coming-soon-title">
+              Generator engine
+            </div>
+
+            <p class="coming-soon-text">
+              This screen is reserved for the source-driven
+              Design System Generator.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             SPACING
+        =================================================== -->
+
+        <div
+          id="screen-spacing"
+          class="screen"
+        >
+
+          <div class="screen-header">
+
+            <h2>
+              Spacing Audit
+            </h2>
+
+            <p>
+              Audit spacing values against the strict
+              4/8pt system before any modification is applied.
+            </p>
+
+          </div>
+
+          <div class="coming-soon">
+
+            <div class="coming-soon-title">
+              Audit engine
+            </div>
+
+            <p class="coming-soon-text">
+              Audit results will show exact before and
+              after values and preserve intentional exceptions.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             CHECKER
+        =================================================== -->
+
+        <div
+          id="screen-checker"
+          class="screen"
+        >
+
+          <div class="screen-header">
+
+            <h2>
+              System Checker
+            </h2>
+
+            <p>
+              Evaluate colors, typography, spacing,
+              components, states, naming, and accessibility
+              using evidence-based findings.
+            </p>
+
+          </div>
+
+          <div class="coming-soon">
+
+            <div class="coming-soon-title">
+              Checker engine
+            </div>
+
+            <p class="coming-soon-text">
+              Findings will distinguish confirmed deviations,
+              likely deviations, and recommendations.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             CONSISTENCY
+        =================================================== -->
+
+        <div
+          id="screen-consistency"
+          class="screen"
+        >
+
+          <div class="screen-header">
+
+            <h2>
+              UI Consistency
+            </h2>
+
+            <p>
+              Detect repeated patterns and evaluate layout,
+              typography, colors, components, icons, forms,
+              navigation, states, and responsive behavior.
+            </p>
+
+          </div>
+
+          <div class="coming-soon">
+
+            <div class="coming-soon-title">
+              Consistency engine
+            </div>
+
+            <p class="coming-soon-text">
+              The future checker will calculate consistency
+              scores and identify quick wins.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             FOUNDATIONS
+        =================================================== -->
+
+        <div
+          id="screen-foundations"
+          class="screen"
+        >
+
+          <div class="screen-header">
+
+            <h2>
+              Foundations
+            </h2>
+
+            <p>
+              Create source-driven design-system documentation
+              from real Variables and Styles.
+            </p>
+
+          </div>
+
+          <div class="coming-soon">
+
+            <div class="coming-soon-title">
+              Documentation engine
+            </div>
+
+            <p class="coming-soon-text">
+              This area will eventually contain dedicated
+              renderers, developer tokens, validation,
+              read-back checks, and automatic repair.
+            </p>
+
+          </div>
+
+        </div>
+
 
       </section>
 
-
     </main>
-
-
-    <!-- ======================================================
-         FOOTER
-    ======================================================= -->
-
-    <footer class="footer">
-      Figma System · Development Build
-    </footer>
-
 
   </div>
 
@@ -707,14 +1390,78 @@
 
 
     // ========================================================
-    // DOM
+    // PAGE CONFIGURATION
     // ========================================================
 
+    const screenConfig = {
+
+      overview: {
+        title: "Overview",
+        description:
+          "Analyze and improve your Figma design system."
+      },
+
+      "design-system": {
+        title: "Design System",
+        description:
+          "Generate source-driven design tokens and components."
+      },
+
+      spacing: {
+        title: "Spacing Audit",
+        description:
+          "Audit spacing against the 4/8pt system."
+      },
+
+      checker: {
+        title: "System Checker",
+        description:
+          "Find evidence-based system deviations."
+      },
+
+      consistency: {
+        title: "UI Consistency",
+        description:
+          "Detect repeated UI patterns and inconsistencies."
+      },
+
+      foundations: {
+        title: "Foundations",
+        description:
+          "Document real Variables and Styles."
+      }
+
+    };
+
+
+    // ========================================================
+    // DOM REFERENCES
+    // ========================================================
+
+    const navItems =
+      document.querySelectorAll(".nav-item");
+
+    const screens =
+      document.querySelectorAll(".screen");
+
+    const pageTitle =
+      document.getElementById("page-title");
+
+    const pageDescription =
+      document.getElementById("page-description");
+
     const selectionCount =
+      document.getElementById("selection-count");
+
+    const selectionPanelCount =
       document.getElementById(
-        "selection-count"
+        "selection-panel-count"
       );
 
+    const selectionList =
+      document.getElementById(
+        "selection-list"
+      );
 
     const inspectButton =
       document.getElementById(
@@ -722,315 +1469,241 @@
       );
 
 
-    const closeButton =
-      document.getElementById(
-        "close"
-      );
-
-
-    const inspectionSection =
-      document.getElementById(
-        "inspection-section"
-      );
-
-
-    const inspectionContent =
-      document.getElementById(
-        "inspection-content"
-      );
-
-
     // ========================================================
-    // Formatting
+    // NAVIGATION
     // ========================================================
 
-    function formatNumber(
-      value,
-      decimals = 2
-    ) {
+    function navigate(screenName) {
 
-      if (
-        typeof value !== "number"
-        || !Number.isFinite(value)
-      ) {
-        return "—";
+      navItems.forEach((item) => {
+
+        const isActive =
+          item.dataset.screen === screenName;
+
+        item.classList.toggle(
+          "active",
+          isActive
+        );
+
+      });
+
+
+      screens.forEach((screen) => {
+
+        screen.classList.toggle(
+          "active",
+          screen.id ===
+            `screen-${screenName}`
+        );
+
+      });
+
+
+      const config =
+        screenConfig[screenName];
+
+      if (!config) {
+        return;
       }
 
 
-      return value
-        .toFixed(decimals)
-        .replace(/\.00$/, "");
+      pageTitle.textContent =
+        config.title;
+
+      pageDescription.textContent =
+        config.description;
 
     }
 
 
-    function formatOpacity(
-      value
-    ) {
+    navItems.forEach((item) => {
 
-      if (value === null) {
-        return "—";
-      }
+      item.addEventListener(
+        "click",
+        () => {
+
+          const screen =
+            item.dataset.screen;
+
+          if (screen) {
+            navigate(screen);
+          }
+
+        }
+      );
+
+    });
 
 
-      return `${Math.round(value * 100)}%`;
+    // ========================================================
+    // NODE TYPE SHORT NAME
+    // ========================================================
 
-    }
+    function getNodeTypeLabel(type) {
 
+      const labels = {
 
-    function escapeHtml(
-      value
-    ) {
+        FRAME: "FRAME",
+        GROUP: "GROUP",
+        COMPONENT: "COMP",
+        INSTANCE: "INSTANCE",
+        TEXT: "TEXT",
+        RECTANGLE: "RECT",
+        ELLIPSE: "ELLIPSE",
+        VECTOR: "VECTOR",
+        LINE: "LINE",
+        SECTION: "SECTION",
+        COMPONENT_SET: "COMP SET"
 
-      return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+      };
+
+      return labels[type] || type;
 
     }
 
 
     // ========================================================
-    // Render Selection
+    // RENDER SELECTION
     // ========================================================
 
-    function renderSelection(
-      selection
-    ) {
+    function renderSelection(selection) {
 
       const count =
         selection?.count ?? 0;
-
-
-      selectionCount.textContent =
-        String(count);
-
-
-      if (count === 0) {
-
-        inspectionSection.classList.remove(
-          "visible"
-        );
-
-
-        inspectionContent.innerHTML =
-          "";
-
-
-        return;
-
-      }
-
-    }
-
-
-    // ========================================================
-    // Render Inspection
-    // ========================================================
-
-    function renderInspection(
-      selection
-    ) {
 
       const nodes =
         selection?.nodes ?? [];
 
 
       selectionCount.textContent =
-        String(
-          selection?.count ?? nodes.length
-        );
+        String(count);
 
 
-      inspectionSection.classList.add(
-        "visible"
-      );
+      selectionPanelCount.textContent =
+        `${count} ${
+          count === 1
+            ? "layer"
+            : "layers"
+        } selected`;
 
 
-      if (nodes.length === 0) {
+      selectionList.innerHTML = "";
 
-        inspectionContent.innerHTML = `
-          <div class="card">
-            <div class="empty">
-              No layers are currently selected.
-            </div>
-          </div>
-        `;
+
+      if (count === 0) {
+
+        const empty =
+          document.createElement("div");
+
+        empty.className =
+          "selection-empty";
+
+        empty.textContent =
+          "Select one or more layers in Figma.";
+
+        selectionList.appendChild(empty);
 
         return;
 
       }
 
 
-      inspectionContent.innerHTML =
-        nodes.map(
-          (node) => {
+      nodes.forEach((node) => {
 
-            const text =
-              node.text;
+        const row =
+          document.createElement("div");
 
-
-            return `
-              <div class="node">
-
-                <div class="node-header">
-
-                  <div
-                    class="node-name"
-                    title="${escapeHtml(node.name)}"
-                  >
-                    ${escapeHtml(node.name)}
-                  </div>
-
-                  <div class="node-type">
-                    ${escapeHtml(node.type)}
-                  </div>
-
-                </div>
+        row.className =
+          "selection-row";
 
 
-                <div class="properties">
+        const icon =
+          document.createElement("div");
+
+        icon.className =
+          "selection-node-icon";
+
+        icon.textContent =
+          getNodeTypeLabel(node.type)
+            .slice(0, 4);
 
 
-                  <div class="property">
+        const info =
+          document.createElement("div");
 
-                    <div class="property-label">
-                      Position
-                    </div>
-
-                    <div class="property-value">
-                      ${formatNumber(node.x)},
-                      ${formatNumber(node.y)}
-                    </div>
-
-                  </div>
+        info.className =
+          "selection-node-info";
 
 
-                  <div class="property">
+        const name =
+          document.createElement("div");
 
-                    <div class="property-label">
-                      Size
-                    </div>
+        name.className =
+          "selection-node-name";
 
-                    <div class="property-value">
-                      ${formatNumber(node.width)}
-                      ×
-                      ${formatNumber(node.height)}
-                    </div>
-
-                  </div>
+        name.textContent =
+          node.name;
 
 
-                  <div class="property">
+        const type =
+          document.createElement("div");
 
-                    <div class="property-label">
-                      Fills
-                    </div>
+        type.className =
+          "selection-node-type";
 
-                    <div class="property-value">
-                      ${node.fills}
-                    </div>
-
-                  </div>
+        type.textContent =
+          getNodeTypeLabel(node.type);
 
 
-                  <div class="property">
-
-                    <div class="property-label">
-                      Strokes
-                    </div>
-
-                    <div class="property-value">
-                      ${node.strokes}
-                    </div>
-
-                  </div>
+        info.appendChild(name);
+        info.appendChild(type);
 
 
-                  <div class="property">
-
-                    <div class="property-label">
-                      Radius
-                    </div>
-
-                    <div class="property-value">
-                      ${
-                        node.cornerRadius ?? "—"
-                      }
-                    </div>
-
-                  </div>
+        row.appendChild(icon);
+        row.appendChild(info);
 
 
-                  <div class="property">
+        selectionList.appendChild(row);
 
-                    <div class="property-label">
-                      Opacity
-                    </div>
-
-                    <div class="property-value">
-                      ${
-                        formatOpacity(
-                          node.opacity
-                        )
-                      }
-                    </div>
-
-                  </div>
-
-
-                </div>
-
-
-                ${
-                  text
-                    ? `
-                      <div class="text-details">
-
-                        <div class="property-label">
-                          Text
-                        </div>
-
-                        <div class="text-content">
-                          ${escapeHtml(
-                            text.characters
-                          )}
-                        </div>
-
-                        <div class="property">
-
-                          <div class="property-label">
-                            Font Size
-                          </div>
-
-                          <div class="property-value">
-                            ${
-                              text.fontSize !== null
-                                ? `${formatNumber(text.fontSize)} px`
-                                : "—"
-                            }
-                          </div>
-
-                        </div>
-
-                      </div>
-                    `
-                    : ""
-                }
-
-              </div>
-            `;
-
-          }
-        ).join("");
+      });
 
     }
 
 
     // ========================================================
-    // Inspect Button
+    // PLUGIN → UI
+    // ========================================================
+
+    window.onmessage =
+      (event) => {
+
+        const message =
+          event.data.pluginMessage;
+
+        if (!message) {
+          return;
+        }
+
+
+        switch (message.type) {
+
+          case "plugin-ready":
+          case "selection-info":
+          case "selection-inspection":
+
+            renderSelection(
+              message.selection
+            );
+
+            break;
+
+        }
+
+      };
+
+
+    // ========================================================
+    // INSPECT
     // ========================================================
 
     inspectButton.addEventListener(
@@ -1046,92 +1719,7 @@
 
 
     // ========================================================
-    // Close
-    // ========================================================
-
-    closeButton.addEventListener(
-      "click",
-      () => {
-
-        sendMessage({
-          type: "close-plugin"
-        });
-
-      }
-    );
-
-
-    // ========================================================
-    // Plugin → UI
-    // ========================================================
-
-    window.onmessage = (
-      event
-    ) => {
-
-      const message =
-        event.data.pluginMessage;
-
-
-      if (!message) {
-        return;
-      }
-
-
-      switch (message.type) {
-
-
-        // ----------------------------------------------------
-        // Plugin Ready
-        // ----------------------------------------------------
-
-        case "plugin-ready": {
-
-          renderSelection(
-            message.selection
-          );
-
-          break;
-
-        }
-
-
-        // ----------------------------------------------------
-        // Automatic Selection Update
-        // ----------------------------------------------------
-
-        case "selection-info": {
-
-          renderSelection(
-            message.selection
-          );
-
-          break;
-
-        }
-
-
-        // ----------------------------------------------------
-        // Inspection Result
-        // ----------------------------------------------------
-
-        case "selection-inspection": {
-
-          renderInspection(
-            message.selection
-          );
-
-          break;
-
-        }
-
-      }
-
-    };
-
-
-    // ========================================================
-    // Tell Plugin UI Is Ready
+    // INITIALIZE
     // ========================================================
 
     sendMessage({
@@ -1141,5 +1729,4 @@
   </script>
 
 </body>
-
 </html>
