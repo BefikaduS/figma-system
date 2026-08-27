@@ -11,61 +11,79 @@
   <title>Figma System</title>
 
   <style>
+    /* ========================================================
+       RESET
+    ======================================================== */
+
     * {
       box-sizing: border-box;
     }
 
     html,
     body {
-      margin: 0;
       width: 100%;
       height: 100%;
+      margin: 0;
+    }
+
+    body {
+      overflow: hidden;
+
       font-family:
-        Inter,
+        "Google Sans",
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
         sans-serif;
+
       background: #f7f7f5;
       color: #18181b;
-    }
-
-    body {
-      display: flex;
-      flex-direction: column;
     }
 
     button {
       font: inherit;
     }
 
+    /* ========================================================
+       APP
+    ======================================================== */
+
     .app {
       display: flex;
-      flex-direction: column;
+
       width: 100%;
       height: 100%;
     }
 
-    /* --------------------------------------------------------
-       Header
-    -------------------------------------------------------- */
+    /* ========================================================
+       SIDEBAR
+    ======================================================== */
 
-    .header {
-      height: 64px;
-      padding: 0 20px;
+    .sidebar {
+      width: 176px;
+      min-width: 176px;
 
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
 
-      border-bottom: 1px solid #e4e4e7;
+      border-right: 1px solid #e4e4e7;
+
       background: #ffffff;
     }
 
+    /* --------------------------------------------------------
+       Brand
+    -------------------------------------------------------- */
+
     .brand {
+      height: 64px;
+
       display: flex;
       align-items: center;
-      gap: 10px;
+
+      padding: 0 16px;
+
+      border-bottom: 1px solid #e4e4e7;
     }
 
     .brand-mark {
@@ -76,16 +94,162 @@
       align-items: center;
       justify-content: center;
 
+      margin-right: 9px;
+
       border-radius: 7px;
+
       background: #18181b;
       color: #ffffff;
 
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 700;
+      letter-spacing: -0.2px;
     }
 
     .brand-name {
-      font-size: 15px;
+      font-size: 13px;
+      font-weight: 650;
+      letter-spacing: -0.2px;
+    }
+
+    /* --------------------------------------------------------
+       Navigation
+    -------------------------------------------------------- */
+
+    .navigation {
+      flex: 1;
+
+      padding: 16px 10px;
+
+      overflow-y: auto;
+    }
+
+    .nav-section {
+      margin-bottom: 20px;
+    }
+
+    .nav-label {
+      padding: 0 8px;
+      margin-bottom: 7px;
+
+      font-size: 9px;
+      font-weight: 700;
+      line-height: 1.2;
+
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+
+      color: #a1a1aa;
+    }
+
+    .nav-button {
+      width: 100%;
+      min-height: 34px;
+
+      display: flex;
+      align-items: center;
+
+      padding: 0 9px;
+
+      border: 0;
+      border-radius: 7px;
+
+      background: transparent;
+      color: #52525b;
+
+      cursor: pointer;
+
+      font-size: 11px;
+      font-weight: 550;
+
+      text-align: left;
+    }
+
+    .nav-button:hover {
+      background: #f4f4f5;
+      color: #18181b;
+    }
+
+    .nav-button.active {
+      background: #18181b;
+      color: #ffffff;
+    }
+
+    .nav-icon {
+      width: 20px;
+      margin-right: 7px;
+
+      font-size: 12px;
+      line-height: 1;
+
+      text-align: center;
+    }
+
+    /* --------------------------------------------------------
+       Sidebar Footer
+    -------------------------------------------------------- */
+
+    .sidebar-footer {
+      padding: 12px 10px;
+
+      border-top: 1px solid #e4e4e7;
+    }
+
+    .close-button {
+      width: 100%;
+      height: 32px;
+
+      border: 1px solid #d4d4d8;
+      border-radius: 7px;
+
+      background: #ffffff;
+      color: #52525b;
+
+      cursor: pointer;
+
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .close-button:hover {
+      background: #f4f4f5;
+      color: #18181b;
+    }
+
+    /* ========================================================
+       MAIN AREA
+    ======================================================== */
+
+    .main {
+      min-width: 0;
+      flex: 1;
+
+      display: flex;
+      flex-direction: column;
+
+      background: #f7f7f5;
+    }
+
+    /* --------------------------------------------------------
+       Header
+    -------------------------------------------------------- */
+
+    .topbar {
+      height: 64px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 22px;
+
+      border-bottom: 1px solid #e4e4e7;
+
+      background: #ffffff;
+    }
+
+    .page-title {
+      font-size: 13px;
       font-weight: 650;
       letter-spacing: -0.2px;
     }
@@ -95,119 +259,199 @@
       align-items: center;
       gap: 6px;
 
-      font-size: 11px;
+      font-size: 10px;
       color: #71717a;
     }
 
     .status-dot {
       width: 7px;
       height: 7px;
+
       border-radius: 50%;
+
       background: #22c55e;
     }
 
     /* --------------------------------------------------------
-       Main
+       Content
     -------------------------------------------------------- */
 
-    .main {
+    .content {
       flex: 1;
-      overflow: auto;
-      padding: 24px 20px;
+
+      overflow-y: auto;
+
+      padding: 24px 22px;
     }
 
-    .intro {
-      margin-bottom: 24px;
+    .page {
+      display: none;
     }
+
+    .page.active {
+      display: block;
+    }
+
+    /* ========================================================
+       Typography
+    ======================================================== */
 
     .eyebrow {
       margin-bottom: 7px;
 
-      font-size: 11px;
-      font-weight: 650;
+      font-size: 9px;
+      font-weight: 700;
+
       text-transform: uppercase;
       letter-spacing: 0.08em;
+
       color: #71717a;
     }
 
     h1 {
       margin: 0 0 8px;
 
+      font-family:
+        "Bricolage Grotesque",
+        "Google Sans",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
       font-size: 25px;
       line-height: 1.15;
-      letter-spacing: -0.7px;
+      letter-spacing: -0.8px;
     }
 
-    .intro-text {
-      margin: 0;
+    h2 {
+      margin: 0 0 7px;
 
-      font-size: 13px;
+      font-size: 15px;
+      line-height: 1.2;
+      letter-spacing: -0.3px;
+    }
+
+    .description {
+      max-width: 440px;
+
+      margin: 0 0 22px;
+
+      font-size: 12px;
       line-height: 1.5;
+
       color: #71717a;
     }
 
-    /* --------------------------------------------------------
-       Selection Card
-    -------------------------------------------------------- */
+    /* ========================================================
+       Cards
+    ======================================================== */
+
+    .card-grid {
+      display: grid;
+
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      gap: 10px;
+    }
 
     .card {
-      padding: 16px;
+      min-height: 126px;
+
+      padding: 15px;
 
       border: 1px solid #e4e4e7;
-      border-radius: 10px;
+      border-radius: 9px;
 
       background: #ffffff;
+    }
+
+    .card:hover {
+      border-color: #d4d4d8;
+    }
+
+    .card-icon {
+      width: 28px;
+      height: 28px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 12px;
+
+      border: 1px solid #e4e4e7;
+      border-radius: 7px;
+
+      background: #fafafa;
+
+      font-size: 12px;
     }
 
     .card-title {
       margin-bottom: 5px;
 
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 650;
     }
 
     .card-description {
-      margin-bottom: 14px;
+      margin: 0;
 
-      font-size: 12px;
+      font-size: 10px;
       line-height: 1.45;
+
       color: #71717a;
     }
 
-    .selection-count {
+    /* ========================================================
+       Selection
+    ======================================================== */
+
+    .selection-card {
+      margin-top: 10px;
+
+      padding: 15px;
+
+      border: 1px solid #e4e4e7;
+      border-radius: 9px;
+
+      background: #ffffff;
+    }
+
+    .selection-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
 
-      padding: 10px 12px;
+      padding: 10px 11px;
 
       border-radius: 7px;
+
       background: #f4f4f5;
     }
 
     .selection-label {
-      font-size: 12px;
+      font-size: 10px;
       color: #52525b;
     }
 
     .selection-value {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 650;
     }
 
-    /* --------------------------------------------------------
-       Actions
-    -------------------------------------------------------- */
-
-    .actions {
+    .button-row {
       display: flex;
       gap: 8px;
-      margin-top: 12px;
+
+      margin-top: 10px;
     }
 
-    button {
-      min-height: 36px;
-      padding: 0 14px;
+    .button {
+      height: 34px;
+
+      padding: 0 13px;
 
       border: 1px solid #d4d4d8;
       border-radius: 7px;
@@ -217,132 +461,605 @@
 
       cursor: pointer;
 
-      font-size: 12px;
+      font-size: 10px;
       font-weight: 600;
     }
 
-    button:hover {
+    .button:hover {
       background: #f4f4f5;
     }
 
-    .primary {
-      flex: 1;
-
+    .button.primary {
       border-color: #18181b;
+
       background: #18181b;
       color: #ffffff;
     }
 
-    .primary:hover {
+    .button.primary:hover {
       background: #27272a;
     }
 
-    /* --------------------------------------------------------
+    /* ========================================================
+       Placeholder Page
+    ======================================================== */
+
+    .placeholder {
+      padding: 28px 0;
+    }
+
+    .placeholder-box {
+      padding: 24px;
+
+      border: 1px solid #e4e4e7;
+      border-radius: 9px;
+
+      background: #ffffff;
+    }
+
+    .placeholder-status {
+      display: inline-flex;
+      align-items: center;
+
+      min-height: 24px;
+
+      padding: 0 8px;
+
+      margin-bottom: 14px;
+
+      border: 1px solid #e4e4e7;
+      border-radius: 6px;
+
+      font-size: 9px;
+      font-weight: 650;
+
+      color: #71717a;
+    }
+
+    .placeholder-text {
+      margin: 0;
+
+      font-size: 11px;
+      line-height: 1.5;
+
+      color: #71717a;
+    }
+
+    /* ========================================================
        Footer
-    -------------------------------------------------------- */
+    ======================================================== */
 
     .footer {
-      padding: 12px 20px;
+      height: 34px;
+
+      display: flex;
+      align-items: center;
+
+      padding: 0 22px;
 
       border-top: 1px solid #e4e4e7;
 
-      font-size: 10px;
-      color: #a1a1aa;
-
       background: #ffffff;
+
+      font-size: 9px;
+      color: #a1a1aa;
     }
   </style>
 </head>
 
 <body>
+
   <div class="app">
 
-    <header class="header">
+    <!-- ======================================================
+         SIDEBAR
+    ======================================================= -->
+
+    <aside class="sidebar">
+
       <div class="brand">
-        <div class="brand-mark">FS</div>
+
+        <div class="brand-mark">
+          FS
+        </div>
 
         <div class="brand-name">
           Figma System
         </div>
+
       </div>
 
-      <div class="status">
-        <span class="status-dot"></span>
-        Ready
+      <nav class="navigation">
+
+        <div class="nav-section">
+
+          <div class="nav-label">
+            Workspace
+          </div>
+
+          <button
+            class="nav-button active"
+            data-page="overview"
+          >
+            <span class="nav-icon">⌂</span>
+            Overview
+          </button>
+
+        </div>
+
+        <div class="nav-section">
+
+          <div class="nav-label">
+            System
+          </div>
+
+          <button
+            class="nav-button"
+            data-page="design-system"
+          >
+            <span class="nav-icon">◈</span>
+            Design System
+          </button>
+
+          <button
+            class="nav-button"
+            data-page="spacing"
+          >
+            <span class="nav-icon">↔</span>
+            Spacing Audit
+          </button>
+
+          <button
+            class="nav-button"
+            data-page="checker"
+          >
+            <span class="nav-icon">✓</span>
+            System Checker
+          </button>
+
+          <button
+            class="nav-button"
+            data-page="consistency"
+          >
+            <span class="nav-icon">≡</span>
+            UI Consistency
+          </button>
+
+        </div>
+
+        <div class="nav-section">
+
+          <div class="nav-label">
+            Documentation
+          </div>
+
+          <button
+            class="nav-button"
+            data-page="foundations"
+          >
+            <span class="nav-icon">▤</span>
+            Foundations
+          </button>
+
+        </div>
+
+      </nav>
+
+      <div class="sidebar-footer">
+
+        <button
+          id="close"
+          class="close-button"
+        >
+          Close plugin
+        </button>
+
       </div>
-    </header>
+
+    </aside>
+
+    <!-- ======================================================
+         MAIN
+    ======================================================= -->
 
     <main class="main">
 
-      <section class="intro">
-        <div class="eyebrow">
-          Design System Toolkit
+      <header class="topbar">
+
+        <div
+          id="page-title"
+          class="page-title"
+        >
+          Overview
         </div>
 
-        <h1>
-          Build better systems.
-        </h1>
+        <div class="status">
 
-        <p class="intro-text">
-          Analyze, generate, audit, and document
-          your Figma design system.
-        </p>
-      </section>
+          <span class="status-dot"></span>
 
-      <section class="card">
-
-        <div class="card-title">
-          Current Selection
-        </div>
-
-        <div class="card-description">
-          Select layers in Figma to begin analyzing
-          your design system.
-        </div>
-
-        <div class="selection-count">
-          <span class="selection-label">
-            Selected layers
-          </span>
-
-          <span
-            id="selection-count"
-            class="selection-value"
-          >
-            0
-          </span>
-        </div>
-
-        <div class="actions">
-
-          <button
-            id="refresh-selection"
-            class="primary"
-          >
-            Refresh selection
-          </button>
-
-          <button
-            id="close"
-          >
-            Close
-          </button>
+          Ready
 
         </div>
 
-      </section>
+      </header>
+
+      <div class="content">
+
+        <!-- ==================================================
+             OVERVIEW
+        =================================================== -->
+
+        <section
+          id="page-overview"
+          class="page active"
+        >
+
+          <div class="eyebrow">
+            Design System Toolkit
+          </div>
+
+          <h1>
+            Build better systems.
+          </h1>
+
+          <p class="description">
+            Analyze, generate, audit, and document
+            your Figma design system from real source data.
+          </p>
+
+          <div class="card-grid">
+
+            <div class="card">
+
+              <div class="card-icon">
+                ◈
+              </div>
+
+              <div class="card-title">
+                Design System
+              </div>
+
+              <p class="card-description">
+                Extract colors, typography, variables,
+                styles, components, and visual properties.
+              </p>
+
+            </div>
+
+            <div class="card">
+
+              <div class="card-icon">
+                ↔
+              </div>
+
+              <div class="card-title">
+                Spacing Audit
+              </div>
+
+              <p class="card-description">
+                Audit layouts against a strict
+                4/8pt spacing system.
+              </p>
+
+            </div>
+
+            <div class="card">
+
+              <div class="card-icon">
+                ✓
+              </div>
+
+              <div class="card-title">
+                System Checker
+              </div>
+
+              <p class="card-description">
+                Check tokens, typography, spacing,
+                components, states, and accessibility.
+              </p>
+
+            </div>
+
+            <div class="card">
+
+              <div class="card-icon">
+                ≡
+              </div>
+
+              <div class="card-title">
+                UI Consistency
+              </div>
+
+              <p class="card-description">
+                Detect repeated patterns and
+                measure interface consistency.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="selection-card">
+
+            <h2>
+              Current Selection
+            </h2>
+
+            <p class="card-description">
+              Select layers in Figma to begin analysis.
+            </p>
+
+            <div class="selection-row">
+
+              <span class="selection-label">
+                Selected layers
+              </span>
+
+              <span
+                id="selection-count"
+                class="selection-value"
+              >
+                0
+              </span>
+
+            </div>
+
+            <div class="button-row">
+
+              <button
+                id="refresh-selection"
+                class="button primary"
+              >
+                Refresh selection
+              </button>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ==================================================
+             DESIGN SYSTEM
+        =================================================== -->
+
+        <section
+          id="page-design-system"
+          class="page"
+        >
+
+          <div class="eyebrow">
+            System
+          </div>
+
+          <h1>
+            Design System
+          </h1>
+
+          <p class="description">
+            Extract real design properties from selected
+            Figma layers and transform them into a structured
+            design system.
+          </p>
+
+          <div class="placeholder">
+            <div class="placeholder-box">
+
+              <div class="placeholder-status">
+                FOUNDATION READY
+              </div>
+
+              <h2>
+                Extraction engine coming next
+              </h2>
+
+              <p class="placeholder-text">
+                This area will contain the source-driven
+                extraction workflow for colors, typography,
+                variables, styles, components, states,
+                radii, strokes, and other visual properties.
+              </p>
+
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==================================================
+             SPACING
+        =================================================== -->
+
+        <section
+          id="page-spacing"
+          class="page"
+        >
+
+          <div class="eyebrow">
+            System
+          </div>
+
+          <h1>
+            Spacing Audit
+          </h1>
+
+          <p class="description">
+            Audit spacing before making any modification.
+            Intentional exceptions and source tokens must
+            remain protected.
+          </p>
+
+          <div class="placeholder">
+            <div class="placeholder-box">
+
+              <div class="placeholder-status">
+                AUDIT ENGINE COMING SOON
+              </div>
+
+              <h2>
+                4/8pt spacing analysis
+              </h2>
+
+              <p class="placeholder-text">
+                The audit will show exact before and after
+                values and will only allow modifications
+                after the audit summary is reviewed.
+              </p>
+
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==================================================
+             SYSTEM CHECKER
+        =================================================== -->
+
+        <section
+          id="page-checker"
+          class="page"
+        >
+
+          <div class="eyebrow">
+            Analysis
+          </div>
+
+          <h1>
+            System Checker
+          </h1>
+
+          <p class="description">
+            Evidence-based checks for design-system quality,
+            accessibility, naming, components, states,
+            typography, colors, and spacing.
+          </p>
+
+          <div class="placeholder">
+            <div class="placeholder-box">
+
+              <div class="placeholder-status">
+                CHECKER COMING SOON
+              </div>
+
+              <h2>
+                Evidence-based findings
+              </h2>
+
+              <p class="placeholder-text">
+                Findings will distinguish confirmed deviations,
+                likely deviations, and recommendations with
+                severity and confidence scoring.
+              </p>
+
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==================================================
+             UI CONSISTENCY
+        =================================================== -->
+
+        <section
+          id="page-consistency"
+          class="page"
+        >
+
+          <div class="eyebrow">
+            Analysis
+          </div>
+
+          <h1>
+            UI Consistency
+          </h1>
+
+          <p class="description">
+            Detect repeated interface patterns across layout,
+            typography, colors, components, icons, forms,
+            navigation, states, and responsive behavior.
+          </p>
+
+          <div class="placeholder">
+            <div class="placeholder-box">
+
+              <div class="placeholder-status">
+                ANALYSIS COMING SOON
+              </div>
+
+              <h2>
+                Consistency scoring
+              </h2>
+
+              <p class="placeholder-text">
+                Repeated-pattern detection, consistency scores,
+                quick wins, and recommended standards will
+                appear here.
+              </p>
+
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==================================================
+             FOUNDATIONS
+        =================================================== -->
+
+        <section
+          id="page-foundations"
+          class="page"
+        >
+
+          <div class="eyebrow">
+            Documentation
+          </div>
+
+          <h1>
+            Foundations
+          </h1>
+
+          <p class="description">
+            Generate source-driven design-system documentation
+            using immutable source IDs, dedicated renderers,
+            read-back validation, and fail-closed output.
+          </p>
+
+          <div class="placeholder">
+            <div class="placeholder-box">
+
+              <div class="placeholder-status">
+                DOCUMENTATION COMING SOON
+              </div>
+
+              <h2>
+                Source-driven foundations
+              </h2>
+
+              <p class="placeholder-text">
+                This will become the most extensive module,
+                including variables, styles, spacing, sizing,
+                radius, borders, opacity, typography,
+                gradients, developer tokens, validation,
+                repair, and final completion assertions.
+              </p>
+
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+
+      <footer class="footer">
+        Figma System · Development Build
+      </footer>
 
     </main>
-
-    <footer class="footer">
-      Figma System · Development Build
-    </footer>
 
   </div>
 
   <script>
     // ========================================================
-    // UI → Plugin
+    // UI → PLUGIN
     // ========================================================
 
     function sendMessage(message) {
@@ -355,8 +1072,23 @@
     }
 
     // ========================================================
+    // STATE
+    // ========================================================
+
+    let currentPage = "overview";
+
+    // ========================================================
     // DOM
     // ========================================================
+
+    const navigationButtons =
+      document.querySelectorAll(".nav-button");
+
+    const pages =
+      document.querySelectorAll(".page");
+
+    const pageTitle =
+      document.getElementById("page-title");
 
     const selectionCount =
       document.getElementById("selection-count");
@@ -368,27 +1100,100 @@
       document.getElementById("close");
 
     // ========================================================
-    // Actions
+    // PAGE TITLES
+    // ========================================================
+
+    const pageTitles = {
+      overview: "Overview",
+      "design-system": "Design System",
+      spacing: "Spacing Audit",
+      checker: "System Checker",
+      consistency: "UI Consistency",
+      foundations: "Foundations"
+    };
+
+    // ========================================================
+    // NAVIGATION
+    // ========================================================
+
+    function showPage(pageName) {
+
+      currentPage = pageName;
+
+      navigationButtons.forEach((button) => {
+
+        const buttonPage =
+          button.dataset.page;
+
+        button.classList.toggle(
+          "active",
+          buttonPage === pageName
+        );
+
+      });
+
+      pages.forEach((page) => {
+
+        page.classList.toggle(
+          "active",
+          page.id === `page-${pageName}`
+        );
+
+      });
+
+      pageTitle.textContent =
+        pageTitles[pageName] || "Figma System";
+    }
+
+    navigationButtons.forEach((button) => {
+
+      button.addEventListener("click", () => {
+
+        const pageName =
+          button.dataset.page;
+
+        if (!pageName) {
+          return;
+        }
+
+        showPage(pageName);
+
+      });
+
+    });
+
+    // ========================================================
+    // SELECTION
     // ========================================================
 
     refreshSelection.addEventListener("click", () => {
+
       sendMessage({
         type: "get-selection"
       });
+
     });
 
+    // ========================================================
+    // CLOSE
+    // ========================================================
+
     closeButton.addEventListener("click", () => {
+
       sendMessage({
         type: "close-plugin"
       });
+
     });
 
     // ========================================================
-    // Plugin → UI
+    // PLUGIN → UI
     // ========================================================
 
     window.onmessage = (event) => {
-      const message = event.data.pluginMessage;
+
+      const message =
+        event.data.pluginMessage;
 
       if (!message) {
         return;
@@ -407,16 +1212,19 @@
 
           break;
         }
+
       }
+
     };
 
     // ========================================================
-    // Tell plugin that UI is ready
+    // UI READY
     // ========================================================
 
     sendMessage({
       type: "ui-ready"
     });
   </script>
+
 </body>
 </html>
